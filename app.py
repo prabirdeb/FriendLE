@@ -222,18 +222,14 @@ def fill_gap(id, subject, topic):
         original_text=original_text.split()
         original_text[ans_index]="_____"
         ques=" ".join(original_text)
-        # Question answer checking     
-        # result1=ques
-        # student_ans= "mango" #input("Write answer for the blank: ").lower()
-
         
       else:
-        result2="Ask question again. Concept found is very poor in strength:("
+        ques="Ask question again. Concept found is very poor in strength:("
       
     else:
-      result2="You have no concept record for this subject"
+      ques="You have no concept record for this subject"
   except:
-    result1="Please provide correct id and subject name"
+    ques="Please provide correct id and subject name"
   
   return ques, ans
 
