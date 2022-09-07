@@ -263,7 +263,7 @@ import streamlit as st # All the text cell will be displayed after this import s
 
 st.title("Welcome to FillGap Practice !!")
 
-id = st.number_input("Your ID", step=1)
+id = st.number_input("Your ID", min_value=1000000, step=1)
 
 subject = st.multiselect("Subject ", subject_lst(id)) 
 
