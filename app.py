@@ -51,7 +51,7 @@ def text_process(text):
 
 # c=0
 
-def fill_blank(id, subject):
+def fill_blank(id, subject, topic):
   try:
     # Importing libraries
     import numpy as np
@@ -69,7 +69,7 @@ def fill_blank(id, subject):
 
     # Creating individual student df
     # Getting google sheet id
-    gsheetid = student_data[(student_data["ID"]==id)]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
+    gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
     sheet_name = "Concepts" # Student should not change the sheet name
 
     # Converting google sheet to csv
@@ -81,7 +81,7 @@ def fill_blank(id, subject):
 
     # Getting the document for the subject
     sub=subject.title() # Converting to title case
-    subject_data=individual_student_data[(individual_student_data.Subjects==sub)]
+    subject_data=individual_student_data[(individual_student_data.Subjects==sub) & (individual_student_data.Topics==topic)]
 
     relevant_features=['Concept-1', 'Concept-2', 'Concept-3', 'Concept-4', 'Concept-5',
     'Concept-6', 'Concept-7', 'Concept-8', 'Concept-9', 'Concept-10',
@@ -144,6 +144,78 @@ def fill_blank(id, subject):
   
   return result1
 
+def topic_lst(id, subject):
+  try:
+    # Importing libraries
+    import numpy as np
+    import pandas as pd
+    # global c
+    # Reading student data as pandas df
+    gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
+    sheet_name = "Sheet1" # Student should not change the sheet name
+
+    # Converting google sheet to csv
+    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+
+    # Creating student data df
+    student_data = pd.read_csv(gsheet_url)
+
+    # Creating individual student df
+    # Getting google sheet id
+    gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
+    sheet_name = "Concepts" # Student should not change the sheet name
+
+    # Converting google sheet to csv
+    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+
+    # Creating individual student data df
+    individual_student_data = pd.read_csv(gsheet_url)
+    individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
+
+    # Getting the document for the subject
+    sub=subject.title() # Converting to title case
+    result=list(individual_student_data[(individual_student_data.Subjects==sub)]["Topics"].unique())
+    
+  except:
+    result=[]
+  
+  return result
+
+def subject_lst(id):
+  try:
+    # Importing libraries
+    import numpy as np
+    import pandas as pd
+    # global c
+    # Reading student data as pandas df
+    gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
+    sheet_name = "Sheet1" # Student should not change the sheet name
+
+    # Converting google sheet to csv
+    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+
+    # Creating student data df
+    student_data = pd.read_csv(gsheet_url)
+
+    # Creating individual student df
+    # Getting google sheet id
+    gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
+    sheet_name = "Concepts" # Student should not change the sheet name
+
+    # Converting google sheet to csv
+    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+
+    # Creating individual student data df
+    individual_student_data = pd.read_csv(gsheet_url)
+    individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
+
+    result=list(individual_student_data["Subjects"].unique())
+    
+  except:
+    result=[]
+
+  return result
+
 import base64
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as image_file:
@@ -167,12 +239,26 @@ st.title("Welcome to FillGap Practice !!")
 
 id = st.number_input("Your ID")
 
-subject = st.text_input("Subject")
-subject=subject.title() # .title() is used to get the input question string
+# subject = st.text_input("Subject")
+# subject=subject.title() # .title() is used to get the input question string
 
-result = fill_blank(id, subject)
+subject = st.multiselect("Subject ", subject_lst(id))
+
+topic = st.multiselect("Topic ", topic_lst(id, subject))
+
+# topic = st.text_input("Topic")
+# topic=topic.title()
+
+result = fill_blank(id, subject, topic)
 
 add_bg_from_local('fillgap.png')   
 
 if(st.button('Ask Me')):   # display the ans when the submit button is clicked
   st.success(result)
+
+# pip install drona
+
+# from drona import tellme
+
+# tellme("Python code for creating a Streamlit file")
+
