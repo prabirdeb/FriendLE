@@ -52,6 +52,11 @@ def text_process(text):
 # c=0
 
 def fill_blank(id, subject, topic):
+  '''
+  id=int
+  subject=list
+  topic=list
+  '''
   try:
     # Importing libraries
     import numpy as np
@@ -80,15 +85,21 @@ def fill_blank(id, subject, topic):
     individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
 
     # Getting the document for the subject
-    sub=subject.title() # Converting to title case
-    subject_data=individual_student_data[(individual_student_data.Subjects==sub) & (individual_student_data.Topics==topic)]
+    df_lst=[]
+    for s in subject:
+      for t in topic:
+        sub=s.title() # Converting to title case
+        subject_data=individual_student_data[(individual_student_data.Subjects==sub) & (individual_student_data.Topics==t)]
 
-    relevant_features=['Concept-1', 'Concept-2', 'Concept-3', 'Concept-4', 'Concept-5',
-    'Concept-6', 'Concept-7', 'Concept-8', 'Concept-9', 'Concept-10',
-    'Concept-11', 'Concept-12', 'Concept-13', 'Concept-14', 'Concept-15',
-    'Concept-16', 'Concept-17', 'Concept-18', 'Concept-19', 'Concept-20']
+        relevant_features=['Concept-1', 'Concept-2', 'Concept-3', 'Concept-4', 'Concept-5',
+        'Concept-6', 'Concept-7', 'Concept-8', 'Concept-9', 'Concept-10',
+        'Concept-11', 'Concept-12', 'Concept-13', 'Concept-14', 'Concept-15',
+        'Concept-16', 'Concept-17', 'Concept-18', 'Concept-19', 'Concept-20']
 
-    subject_data=subject_data[relevant_features]
+        subject_data=subject_data[relevant_features]
+        df_lst.append(subject_data)
+    # Concatinating all the df
+    subject_data=pd.concat(df_lst)
     # Creating documents with all individual cell
     subject_data=pd.DataFrame(subject_data.values.flatten(), columns=['documents'])
 
@@ -144,43 +155,6 @@ def fill_blank(id, subject, topic):
   
   return result1
 
-def topic_lst(id, subject):
-  try:
-    # Importing libraries
-    import numpy as np
-    import pandas as pd
-    # global c
-    # Reading student data as pandas df
-    gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
-    sheet_name = "Sheet1" # Student should not change the sheet name
-
-    # Converting google sheet to csv
-    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
-
-    # Creating student data df
-    student_data = pd.read_csv(gsheet_url)
-
-    # Creating individual student df
-    # Getting google sheet id
-    gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
-    sheet_name = "Concepts" # Student should not change the sheet name
-
-    # Converting google sheet to csv
-    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
-
-    # Creating individual student data df
-    individual_student_data = pd.read_csv(gsheet_url)
-    individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
-
-    # Getting the document for the subject
-    sub=subject.title() # Converting to title case
-    result=list(individual_student_data[(individual_student_data.Subjects==sub)]["Topics"].unique())
-    
-  except:
-    result=[]
-  
-  return result
-
 def subject_lst(id):
   try:
     # Importing libraries
@@ -210,10 +184,54 @@ def subject_lst(id):
     individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
 
     result=list(individual_student_data["Subjects"].unique())
+    result = [x for x in result if str(x) != 'nan']
     
   except:
     result=[]
 
+  return result
+
+def topic_lst(id, subject):
+  '''
+  id=int
+  subject=list of subjects
+  '''
+  try:
+    # Importing libraries
+    import numpy as np
+    import pandas as pd
+    # global c
+    # Reading student data as pandas df
+    gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
+    sheet_name = "Sheet1" # Student should not change the sheet name
+
+    # Converting google sheet to csv
+    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+
+    # Creating student data df
+    student_data = pd.read_csv(gsheet_url)
+
+    # Creating individual student df
+    # Getting google sheet id
+    gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
+    sheet_name = "Concepts" # Student should not change the sheet name
+
+    # Converting google sheet to csv
+    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+
+    # Creating individual student data df
+    individual_student_data = pd.read_csv(gsheet_url)
+    individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
+
+    # Getting the document for the subject
+    result=[]
+    for s in subject: 
+      sub=s.title() # Converting to title case
+      result.extend(list(individual_student_data[(individual_student_data.Subjects==sub)]["Topics"].unique()))
+    
+  except:
+    result=[]
+  
   return result
 
 import base64
@@ -242,7 +260,7 @@ id = st.number_input("Your ID")
 # subject = st.text_input("Subject")
 # subject=subject.title() # .title() is used to get the input question string
 
-subject = st.multiselect("Subject ", subject_lst(id))
+subject = st.multiselect("Subject ", subject_lst(id)) # gives a list
 
 topic = st.multiselect("Topic ", topic_lst(id, subject))
 
