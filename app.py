@@ -136,8 +136,6 @@ def topic_lst(id, subject):
 
 # Writing main function
 
-# c=0
-
 def fill_gap(id, subject, topic):
   '''
   id=int
@@ -225,11 +223,14 @@ def fill_gap(id, subject, topic):
         
       else:
         ques="Ask question again. Concept found is very poor in strength:("
+        ans=""
       
     else:
       ques="You have no concept record for this subject"
+      ans=""
   except:
     ques="Please provide correct id and subject name"
+    ans=""
   
   return ques, ans
 
@@ -259,8 +260,32 @@ def add_bg_from_local(image_file):
     unsafe_allow_html=True
     )
 
+# # Streamlit Project
+# import streamlit as st # All the text cell will be displayed after this import statement
+
+# st.title("Welcome to FillGap Practice !!")
+
+# id = st.number_input("Your ID", min_value=1000000, step=1)
+
+# subject = st.multiselect("Subject ", subject_lst(id)) 
+
+# topic = st.multiselect("Topic ", topic_lst(id, subject))
+
+# ques, ans = fill_gap(id, subject, topic)
+
+# add_bg_from_local('fillgap.png')   
+
+# if(st.button('Get Question')):   # display the ans when the "Get Question" button is clicked
+#   st.success(ques)
+#   student_ans = st.text_input("Type your answer")
+#   student_ans=student_ans.title()
+#   result=check(student_ans, ans)
+#   if(st.button('Check')):
+#     st.success(result)
+
 # Streamlit Project
 import streamlit as st # All the text cell will be displayed after this import statement
+import SessionState
 
 st.title("Welcome to FillGap Practice !!")
 
@@ -272,14 +297,22 @@ topic = st.multiselect("Topic ", topic_lst(id, subject))
 
 ques, ans = fill_gap(id, subject, topic)
 
-add_bg_from_local('fillgap.png')   
+add_bg_from_local('fillgap.png') 
 
-if(st.button('Get Question')):   # display the ans when the submit button is clicked
-  st.success(ques)
-  student_ans = st.text_input("Type your answer")
-  student_ans=student_ans.title()
-  ques, ans = fill_gap(id, subject, topic)
-  result=check(student_ans, ans)
-  if(st.button('Check')):
-    st.success(result)
+button1 = st.empty()
+text1 = st.empty()
+button2 = st.empty()
+text2 = st.empty()
 
+ss = SessionState.get(button1 = False)
+
+if button1.button('Get Question') :
+    ss.button1 = True
+
+if ss.button1:
+    text1.write(ques)
+    student_ans = st.text_input("Type your answer")
+    student_ans=student_ans.title()
+    result=check(student_ans, ans)
+    if button2.button('Check'):
+        text2.write(result)
