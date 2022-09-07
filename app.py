@@ -282,7 +282,7 @@ if(st.button('Get Question')):   # display the ans when the submit button is cli
   st.success(ques)
   student_ans = st.text_input("Type your answer")
   student_ans=student_ans.title()
-  # ques, ans = fill_gap(id, subject, topic)
+  ques, ans = fill_gap(id, subject, topic)
   result=check(student_ans, ans)
   if(st.button('Check')):
     st.success(result)
