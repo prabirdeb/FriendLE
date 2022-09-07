@@ -237,6 +237,12 @@ def fill_gap(id, subject, topic):
   
   return ques, ans
 
+ques, ans=fill_gap(1000001, ["English"], ["The fun they had"])
+
+ques
+
+ans
+
 def check(student_ans, ans):
   student_ans=student_ans.lower()
   if student_ans==ans:
@@ -282,6 +288,7 @@ if(st.button('Get Question')):   # display the ans when the submit button is cli
   st.success(ques)
   student_ans = st.text_input("Type your answer")
   student_ans=student_ans.title()
+  ans="mango"
   result=check(student_ans, ans)
   if(st.button('Check')):
     st.success(result)
