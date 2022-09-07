@@ -223,15 +223,10 @@ def fill_gap(id, subject, topic):
         original_text[ans_index]="_____"
         ques=" ".join(original_text)
         # Question answer checking     
-        result1=ques
-        student_ans= "mango" #input("Write answer for the blank: ").lower()
+        # result1=ques
+        # student_ans= "mango" #input("Write answer for the blank: ").lower()
 
-        if student_ans==ans:
-          # c=c+10
-          result2="Awesome! Absolutely correct" # \nYour total score: {c}
-        else:
-          # c=c-10
-          result2="Incorrect. Please revise the chapter.\nCorrect answer is:" # \nYour total score: {c}
+        
       else:
         result2="Ask question again. Concept found is very poor in strength:("
       
@@ -240,7 +235,17 @@ def fill_gap(id, subject, topic):
   except:
     result1="Please provide correct id and subject name"
   
-  return result1
+  return ques, ans
+
+def check(student_ans, ans):
+  student_ans=student_ans.lower()
+  if student_ans==ans:
+    # c=c+10
+    result="Awesome! Absolutely correct" # \nYour total score: {c}
+  else:
+    # c=c-10
+    result="Incorrect. Please revise the chapter.\nCorrect answer is:" # \nYour total score: {c}
+  return result
 
 import base64
 def add_bg_from_local(image_file):
@@ -269,10 +274,15 @@ subject = st.multiselect("Subject ", subject_lst(id))
 
 topic = st.multiselect("Topic ", topic_lst(id, subject))
 
-result = fill_gap(id, subject, topic)
+ques, ans = fill_gap(id, subject, topic)
 
 add_bg_from_local('fillgap.png')   
 
 if(st.button('Get Question')):   # display the ans when the submit button is clicked
-  st.success(result)
+  st.success(ques)
+  student_ans = st.text_input("Type your answer")
+  student_ans=student_ans.title()
+  result=check(student_ans, ans)
+  if(st.button('Check')):
+    st.success(result)
 
