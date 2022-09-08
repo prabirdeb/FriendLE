@@ -241,7 +241,7 @@ def check(student_ans, ans):
     result="Awesome! Absolutely correct" # \nYour total score: {c}
   else:
     # c=c-10
-    result="Incorrect. Please revise the chapter.\nCorrect answer is:" # \nYour total score: {c}
+    result="Incorrect. Please revise the chapter." # \nYour total score: {c}
   return result
 
 import base64
@@ -267,6 +267,9 @@ st.title("Welcome to FillGap Practice !!")
 
 st.session_state
 
+if "button_clicked" not in st.session_state:    
+    st.session_state.button_clicked = False
+
 id = st.number_input("Your ID", min_value=1000000, step=1)
 
 subject = st.multiselect("Subject ", subject_lst(id)) 
@@ -275,24 +278,20 @@ topic = st.multiselect("Topic ", topic_lst(id, subject))
 
 ques_ans = fill_gap(id, subject, topic)
 
-if 'ques' not in st.session_state:
-    st.session_state['ques'] = ques_ans[0]
-
-if 'ans' not in st.session_state:
-    st.session_state['ans'] = ques_ans[1]
-
 add_bg_from_local('fillgap.png')   
 
-if(st.button('Get Question')):   # display the ans when the "Get Question" button is clicked
-  st.success(st.session_state.ques)
+if(st.button('Get Question') or st.session_state.button_clicked):   # display the ans when the "Get Question" button is clicked
+  st.success(ques_ans[0])
+  st.session_state['ques'] = ques_ans[0]
+  st.session_state['correct ans'] = ques_ans[1]
   
   student_ans = st.text_input("Type your answer")
   student_ans=student_ans.title()
-  if 'student_ans' not in st.session_state:
-    st.session_state['student_ans'] = student_ans
   
-  result=check(st.session_state.student_ans, st.session_state.ans)
-  if 'result' not in st.session_state:
-    st.session_state['result'] = result
+  result=check(student_ans, ques_ans[0])
+  
   if(st.button('Check')):
-    st.success(st.session_state.result)
+    st.success(result)
+    st.session_state['student_ans'] = student_ans
+    st.session_state['result'] = result
+
