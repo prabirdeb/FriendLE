@@ -265,20 +265,20 @@ import streamlit as st # All the text cell will be displayed after this import s
 
 st.title("Welcome to FillGap Practice !!")
 
-# id = st.number_input("Your ID", min_value=1000000, step=1)
+id = st.number_input("Your ID", min_value=1000000, step=1)
 
 if 'id' not in st.session_state:
-    st.session_state['id'] = st.number_input("Your ID", min_value=1000000, step=1)
+    st.session_state['id'] = id
 
-# subject = st.multiselect("Subject ", subject_lst(id)) 
+subject = st.multiselect("Subject ", subject_lst(st.session_state.id)) 
 
 if 'subject' not in st.session_state:
-    st.session_state['subject'] = st.multiselect("Subject ", subject_lst(st.session_state.id))
+    st.session_state['subject'] = subject
 
-# topic = st.multiselect("Topic ", topic_lst(id, subject))
+topic = st.multiselect("Topic ", topic_lst(st.session_state.id, st.session_state.subject))
 
 if 'topic' not in st.session_state:
-    st.session_state['topic'] = st.multiselect("Topic ", topic_lst(st.session_state.id, st.session_state.subject))
+    st.session_state['topic'] = topic
 
 ques_ans = fill_gap(st.session_state.id, st.session_state.subject, st.session_state.topic)
 
@@ -292,12 +292,14 @@ add_bg_from_local('fillgap.png')
 
 if(st.button('Get Question')):   # display the ans when the "Get Question" button is clicked
   st.success(st.session_state.ques)
-  # student_ans = st.text_input("Type your answer")
-  # student_ans=student_ans.title()
+  
+  student_ans = st.text_input("Type your answer")
+  student_ans=student_ans.title()
   if 'student_ans' not in st.session_state:
-    st.session_state['student_ans'] = st.text_input("Type your answer")
-  # result=check(st.session_state.student_ans, st.session_state.ans)
+    st.session_state['student_ans'] = student_ans
+  
+  result=check(st.session_state.student_ans, st.session_state.ans)
   if 'result' not in st.session_state:
-    st.session_state['result'] = check(st.session_state.student_ans, st.session_state.ans)
+    st.session_state['result'] = result
   if(st.button('Check')):
     st.success(st.session_state.result)
