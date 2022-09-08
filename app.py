@@ -286,12 +286,12 @@ if(st.button('Get Question') or st.session_state.button_clicked):   # display th
   st.session_state['correct ans'] = ques_ans[1]
   
   student_ans = st.text_input("Type your answer")
-  student_ans=student_ans.title()
+  # student_ans=student_ans.title()
+  st.session_state['student_ans'] = student_ans
   
   result=check(student_ans, ques_ans[0])
+  st.session_state['result'] = result
   
   if(st.button('Check')):
     st.success(result)
-    st.session_state['student_ans'] = student_ans
-    st.session_state['result'] = result
 
