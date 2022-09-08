@@ -229,7 +229,7 @@ def fill_gap(id, subject, topic):
       ques="You have no concept record for this subject"
       ans=""
   except:
-    ques="Please provide correct id"
+    ques="Please provide correct id, subject and topic"
     ans=""
   
   return ques, ans
@@ -267,20 +267,11 @@ st.title("Welcome to FillGap Practice !!")
 
 id = st.number_input("Your ID", min_value=1000000, step=1)
 
-if 'id' not in st.session_state:
-    st.session_state['id'] = id
+subject = st.multiselect("Subject ", subject_lst(id)) 
 
-subject = st.multiselect("Subject ", subject_lst(st.session_state.id)) 
+topic = st.multiselect("Topic ", topic_lst(id, subject))
 
-if 'subject' not in st.session_state:
-    st.session_state['subject'] = subject
-
-topic = st.multiselect("Topic ", topic_lst(st.session_state.id, st.session_state.subject))
-
-if 'topic' not in st.session_state:
-    st.session_state['topic'] = topic
-
-ques_ans = fill_gap(st.session_state.id, st.session_state.subject, st.session_state.topic)
+ques_ans = fill_gap(id, subject, topic)
 
 if 'ques' not in st.session_state:
     st.session_state['ques'] = ques_ans[0]
