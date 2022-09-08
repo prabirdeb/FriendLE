@@ -267,8 +267,8 @@ st.title("Welcome to FillGap Practice !!")
 
 st.session_state
 
-if "button_clicked" not in st.session_state:    
-    st.session_state.button_clicked = False
+# if "button_clicked" not in st.session_state:    
+#     st.session_state.button_clicked = False
 
 id = st.number_input("Your ID", min_value=1000000, step=1)
 
@@ -280,15 +280,18 @@ ques_ans = fill_gap(id, subject, topic)
 
 add_bg_from_local('fillgap.png')   
 
-if(st.button('Get Question') or st.session_state.button_clicked):   # display the ans when the "Get Question" button is clicked
+if(st.button('Get Question')):   #  or st.session_state.button_clicked
   st.success(ques_ans[0])
   st.session_state['ques'] = ques_ans[0]
   st.session_state['correct ans'] = ques_ans[1]
   
   student_ans = st.text_input("Type your answer")
-  # student_ans=student_ans.title()
-  st.session_state['student_ans'] = student_ans
-  
+  student_ans=student_ans.title()
+  if "student_ans" not in st.session_state:    
+    st.session_state.student_ans = student_ans
+  else:
+    st.session_state.student_ans = student_ans
+
   result=check(student_ans, ques_ans[0])
   st.session_state['result'] = result
   
