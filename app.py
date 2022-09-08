@@ -275,11 +275,9 @@ topic = st.multiselect("Topic ", topic_lst(id, subject))
 
 ques_ans = fill_gap(id, subject, topic)
 
-if 'ques' not in st.session_state:
-    st.session_state['ques'] = ques_ans[0]
+st.session_state['ques'] = ques_ans[0]
 
-if 'ans' not in st.session_state:
-    st.session_state['ans'] = ques_ans[1]
+st.session_state['ans'] = ques_ans[1]
 
 add_bg_from_local('fillgap.png')   
 
@@ -288,11 +286,10 @@ if(st.button('Get Question')):   # display the ans when the "Get Question" butto
   
   student_ans = st.text_input("Type your answer")
   student_ans=student_ans.title()
-  if 'student_ans' not in st.session_state:
-    st.session_state['student_ans'] = student_ans
+  st.session_state['student_ans'] = student_ans
   
   result=check(st.session_state.student_ans, st.session_state.ans)
-  if 'result' not in st.session_state:
-    st.session_state['result'] = result
+  st.session_state['result'] = result
   if(st.button('Check')):
     st.success(st.session_state.result)
+
