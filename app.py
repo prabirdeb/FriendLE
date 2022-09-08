@@ -265,7 +265,7 @@ import streamlit as st # All the text cell will be displayed after this import s
 
 st.title("Welcome to FillGap Practice !!")
 
-"", st.session_state
+st.session_state
 
 id = st.number_input("Your ID", min_value=1000000, step=1)
 
@@ -275,12 +275,14 @@ topic = st.multiselect("Topic ", topic_lst(id, subject))
 
 ques_ans = fill_gap(id, subject, topic)
 
+st.session_state['ques'] = ques_ans[0]
+
+st.session_state['ans'] = ques_ans[1]
+
 add_bg_from_local('fillgap.png')   
 
-if st.button('Get Question') | st.button('Check'):   # display the ans when the "Get Question" button is clicked
-  st.success(ques_ans[0])
-  st.session_state['ques'] = ques_ans[0]
-  st.session_state['ans'] = ques_ans[1]
+if(st.button('Get Question')):   # display the ans when the "Get Question" button is clicked
+  st.success(st.session_state.ques)
   
   student_ans = st.text_input("Type your answer")
   student_ans=student_ans.title()
