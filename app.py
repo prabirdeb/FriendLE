@@ -229,7 +229,7 @@ def fill_gap(id, subject, topic):
       ques="You have no concept record for this subject"
       ans=""
   except:
-    ques="Please provide correct id and subject name"
+    ques="Please provide correct id"
     ans=""
   
   return ques, ans
@@ -265,39 +265,39 @@ import streamlit as st # All the text cell will be displayed after this import s
 
 st.title("Welcome to FillGap Practice !!")
 
-id = st.number_input("Your ID", min_value=1000000, step=1)
+# id = st.number_input("Your ID", min_value=1000000, step=1)
 
 if 'id' not in st.session_state:
-    st.session_state['id'] = id
+    st.session_state['id'] = st.number_input("Your ID", min_value=1000000, step=1)
 
-subject = st.multiselect("Subject ", subject_lst(id)) 
+# subject = st.multiselect("Subject ", subject_lst(id)) 
 
 if 'subject' not in st.session_state:
-    st.session_state['subject'] = subject
+    st.session_state['subject'] = st.multiselect("Subject ", subject_lst(id))
 
-topic = st.multiselect("Topic ", topic_lst(id, subject))
+# topic = st.multiselect("Topic ", topic_lst(id, subject))
 
 if 'topic' not in st.session_state:
-    st.session_state['topic'] = topic
+    st.session_state['topic'] = st.multiselect("Topic ", topic_lst(id, subject))
 
-ques, ans = fill_gap(st.session_state.id, st.session_state.subject, st.session_state.topic)
+# ques, ans = fill_gap(st.session_state.id, st.session_state.subject, st.session_state.topic)
 
 if 'ques' not in st.session_state:
-    st.session_state['ques'] = ques
+    st.session_state['ques'] = fill_gap(st.session_state.id, st.session_state.subject, st.session_state.topic)[0]
 
 if 'ans' not in st.session_state:
-    st.session_state['ans'] = ans
+    st.session_state['ans'] = fill_gap(st.session_state.id, st.session_state.subject, st.session_state.topic)[1]
 
 add_bg_from_local('fillgap.png')   
 
 if(st.button('Get Question')):   # display the ans when the "Get Question" button is clicked
   st.success(st.session_state.ques)
-  student_ans = st.text_input("Type your answer")
-  student_ans=student_ans.title()
+  # student_ans = st.text_input("Type your answer")
+  # student_ans=student_ans.title()
   if 'student_ans' not in st.session_state:
-    st.session_state['student_ans'] = student_ans
-  result=check(st.session_state.student_ans, st.session_state.ans)
+    st.session_state['student_ans'] = st.text_input("Type your answer")
+  # result=check(st.session_state.student_ans, st.session_state.ans)
   if 'result' not in st.session_state:
-    st.session_state['result'] = result
+    st.session_state['result'] = check(st.session_state.student_ans, st.session_state.ans)
   if(st.button('Check')):
     st.success(st.session_state.result)
