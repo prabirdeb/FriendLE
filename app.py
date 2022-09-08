@@ -273,20 +273,20 @@ if 'id' not in st.session_state:
 # subject = st.multiselect("Subject ", subject_lst(id)) 
 
 if 'subject' not in st.session_state:
-    st.session_state['subject'] = st.multiselect("Subject ", subject_lst(id))
+    st.session_state['subject'] = st.multiselect("Subject ", subject_lst(st.session_state.id))
 
 # topic = st.multiselect("Topic ", topic_lst(id, subject))
 
 if 'topic' not in st.session_state:
-    st.session_state['topic'] = st.multiselect("Topic ", topic_lst(id, subject))
+    st.session_state['topic'] = st.multiselect("Topic ", topic_lst(st.session_state.id, st.session_state.subject))
 
-# ques, ans = fill_gap(st.session_state.id, st.session_state.subject, st.session_state.topic)
+ques_ans = fill_gap(st.session_state.id, st.session_state.subject, st.session_state.topic)
 
 if 'ques' not in st.session_state:
-    st.session_state['ques'] = fill_gap(st.session_state.id, st.session_state.subject, st.session_state.topic)[0]
+    st.session_state['ques'] = ques_ans[0]
 
 if 'ans' not in st.session_state:
-    st.session_state['ans'] = fill_gap(st.session_state.id, st.session_state.subject, st.session_state.topic)[1]
+    st.session_state['ans'] = ques_ans[1]
 
 add_bg_from_local('fillgap.png')   
 
