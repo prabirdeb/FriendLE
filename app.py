@@ -260,59 +260,44 @@ def add_bg_from_local(image_file):
     unsafe_allow_html=True
     )
 
-# # Streamlit Project
-# import streamlit as st # All the text cell will be displayed after this import statement
-
-# st.title("Welcome to FillGap Practice !!")
-
-# id = st.number_input("Your ID", min_value=1000000, step=1)
-
-# subject = st.multiselect("Subject ", subject_lst(id)) 
-
-# topic = st.multiselect("Topic ", topic_lst(id, subject))
-
-# ques, ans = fill_gap(id, subject, topic)
-
-# add_bg_from_local('fillgap.png')   
-
-# if(st.button('Get Question')):   # display the ans when the "Get Question" button is clicked
-#   st.success(ques)
-#   student_ans = st.text_input("Type your answer")
-#   student_ans=student_ans.title()
-#   result=check(student_ans, ans)
-#   if(st.button('Check')):
-#     st.success(result)
-
 # Streamlit Project
 import streamlit as st # All the text cell will be displayed after this import statement
-import SessionState
 
 st.title("Welcome to FillGap Practice !!")
 
 id = st.number_input("Your ID", min_value=1000000, step=1)
 
+if 'id' not in st.session_state:
+    st.session_state['id'] = id
+
 subject = st.multiselect("Subject ", subject_lst(id)) 
+
+if 'subject' not in st.session_state:
+    st.session_state['subject'] = subject
 
 topic = st.multiselect("Topic ", topic_lst(id, subject))
 
-ques, ans = fill_gap(id, subject, topic)
+if 'topic' not in st.session_state:
+    st.session_state['topic'] = topic
 
-add_bg_from_local('fillgap.png') 
+ques, ans = fill_gap(st.session_state.id, st.session_state.subject, st.session_state.topic)
 
-button1 = st.empty()
-text1 = st.empty()
-button2 = st.empty()
-text2 = st.empty()
+if 'ques' not in st.session_state:
+    st.session_state['ques'] = ques
 
-ss = SessionState.get(button1 = False)
+if 'ans' not in st.session_state:
+    st.session_state['ans'] = ans
 
-if button1.button('Get Question') :
-    ss.button1 = True
+add_bg_from_local('fillgap.png')   
 
-if ss.button1:
-    text1.write(ques)
-    student_ans = st.text_input("Type your answer")
-    student_ans=student_ans.title()
-    result=check(student_ans, ans)
-    if button2.button('Check'):
-        text2.write(result)
+if(st.button('Get Question')):   # display the ans when the "Get Question" button is clicked
+  st.success(st.session_state.ques)
+  student_ans = st.text_input("Type your answer")
+  student_ans=student_ans.title()
+  if 'student_ans' not in st.session_state:
+    st.session_state['student_ans'] = student_ans
+  result=check(st.session_state.student_ans, st.session_state.ans)
+  if 'result' not in st.session_state:
+    st.session_state['result'] = result
+  if(st.button('Check')):
+    st.success(st.session_state.result)
