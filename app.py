@@ -338,17 +338,17 @@ st.session_state
 
 cl = st.selectbox("Class", cl_lst()) 
 
-medium = st.selectbox("Medium", medium_lst(cl[0])) 
+medium = st.selectbox("Medium", medium_lst(cl)) 
 
-id = st.selectbox("Your ID", id_lst(cl[0], medium[0])) 
+id = st.selectbox("Your ID", id_lst(cl, medium)) 
 
 # id = st.number_input("Your ID", min_value=1000000, step=1)
 
-subject = st.multiselect("Subject ", subject_lst(id[0])) 
+subject = st.multiselect("Subject ", subject_lst(id)) 
 
 topic = st.multiselect("Topic ", topic_lst(id, subject))
 
-ques_ans = fill_gap(id[0], subject, topic)
+ques_ans = fill_gap(id, subject, topic)
 
 add_bg_from_local('fillgap.png')   
 
