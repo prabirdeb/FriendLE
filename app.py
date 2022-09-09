@@ -41,6 +41,75 @@ def text_process(text):
 
   return text
 
+def cl_lst():
+  try:
+    # Importing libraries
+    import numpy as np
+    import pandas as pd
+    # global c
+    # Reading student data as pandas df
+    gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
+    sheet_name = "Sheet1" # Student should not change the sheet name
+
+    # Converting google sheet to csv
+    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+
+    # Creating student data df
+    student_data = pd.read_csv(gsheet_url)
+  
+    result=list(student_data["Class"].unique())
+    result = [x for x in result if str(x) != 'nan']
+    
+  except:
+    result=[]
+  return result
+
+def medium_lst(cl):
+  try:
+    # Importing libraries
+    import numpy as np
+    import pandas as pd
+    # global c
+    # Reading student data as pandas df
+    gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
+    sheet_name = "Sheet1" # Student should not change the sheet name
+
+    # Converting google sheet to csv
+    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+
+    # Creating student data df
+    student_data = pd.read_csv(gsheet_url)
+  
+    result=list(student_data[(student_data.Class==cl)]["Medium"].unique())
+    result = [x for x in result if str(x) != 'nan']
+    
+  except:
+    result=[]
+  return result
+
+def id_lst(cl,medium):
+  try:
+    # Importing libraries
+    import numpy as np
+    import pandas as pd
+    # global c
+    # Reading student data as pandas df
+    gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
+    sheet_name = "Sheet1" # Student should not change the sheet name
+
+    # Converting google sheet to csv
+    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+
+    # Creating student data df
+    student_data = pd.read_csv(gsheet_url)
+  
+    result=list(student_data[(student_data.Class==cl) & (student_data.Medium==medium)]["ID"].unique())
+    result = [x for x in result if str(x) != 'nan']
+    
+  except:
+    result=[]
+  return result
+
 def subject_lst(id):
   try:
     # Importing libraries
@@ -267,13 +336,19 @@ st.title("Welcome to FillGap Practice !!")
 
 st.session_state
 
-id = st.number_input("Your ID", min_value=1000000, step=1)
+cl = st.selectbox("Class", cl_lst()) 
 
-subject = st.multiselect("Subject ", subject_lst(id)) 
+medium = st.selectbox("Medium", medium_lst(cl[0])) 
+
+id = st.selectbox("Your ID", id_lst(cl[0], medium[0])) 
+
+# id = st.number_input("Your ID", min_value=1000000, step=1)
+
+subject = st.multiselect("Subject ", subject_lst(id[0])) 
 
 topic = st.multiselect("Topic ", topic_lst(id, subject))
 
-ques_ans = fill_gap(id, subject, topic)
+ques_ans = fill_gap(id[0], subject, topic)
 
 add_bg_from_local('fillgap.png')   
 
@@ -291,5 +366,4 @@ if(st.button('Get Question')):
   
   if(st.button('Check')):
     st.success(result)
-    st.success(student_ans)
 
