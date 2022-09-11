@@ -371,6 +371,6 @@ if question or st.session_state.load_state:
 
   check= st.button("Check")
 
-  if check or st.session_state.load_state:
+  if check:
     st.write(result)
 
