@@ -359,6 +359,7 @@ if "load_state" not in st.session_state:
   st.session_state.load_state=False
 
 if question or st.session_state.load_state:
+  st.session_state.load_state=True
   st.write(ques_ans[0])
   ques = ques_ans[0]
   correct_ans = ques_ans[1]
