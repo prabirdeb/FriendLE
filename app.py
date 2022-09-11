@@ -307,10 +307,10 @@ def check(student_ans, ans):
   student_ans=student_ans.lower()
   if student_ans==ans:
     # c=c+10
-    result="Awesome! Absolutely correct" # \nYour total score: {c}
+    result=f"Awesome! Absolutely correct.\nCorrect answer is {ans}" # \nYour total score: {c}
   else:
     # c=c-10
-    result="Incorrect. Please revise the chapter." # \nYour total score: {c}
+    result=f"Incorrect. Please revise the chapter.\nCorrect answer is {ans}" # \nYour total score: {c}
   return result
 
 import base64
@@ -371,19 +371,4 @@ if question or st.session_state.load_state:
     
   if(st.button('Check')):
     st.write(result)
-
-# if(st.button('Get Question')):   
-#   st.success(ques_ans[0])
-#   st.session_state['ques'] = ques_ans[0]
-#   st.session_state['correct ans'] = ques_ans[1]
-  
-#   student_ans = st.text_input("Type your answer")
-#   student_ans=student_ans.title()
-#   st.session_state["student_ans"] = student_ans
-
-#   result=check(student_ans, ques_ans[1])
-#   st.session_state['result'] = result
-  
-#   if(st.button('Check')):
-#     st.success(result)
 
