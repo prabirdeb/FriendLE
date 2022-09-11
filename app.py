@@ -368,8 +368,14 @@ if question or st.session_state.load_state:
   student_ans=student_ans.title()
   
   result=check(student_ans, correct_ans)
-    
-  if(st.button('Check')):
-    st.session_state.load_state=False
+  
+  check= st.button("Check")
+
+  # Initialize session state to stop refreshing the page when second button is pressed
+  if "load_state" not in st.session_state:
+    st.session_state.load_state=False  
+
+  if check or st.session_state.load_state:
+    st.session_state.load_state=True
     st.write(result)
 
