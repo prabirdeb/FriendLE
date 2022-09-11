@@ -364,15 +364,15 @@ if question or st.session_state.load_state:
   ques = ques_ans[0]
   correct_ans = ques_ans[1]
   
-  student_ans = st.text_input("Type your answer")
-  student_ans=student_ans.title()
+student_ans = st.text_input("Type your answer")
+student_ans=student_ans.title()
 
-  if student_ans==correct_ans:
-    st.write("Awesome! Absolutely correct.")
-  else:
-    st.write("Incorrect. Please revise the chapter.")
-    st.write(f"Correct answer is {correct_ans}")
-  # result=check(student_ans, correct_ans)
+if student_ans==correct_ans:
+  st.write("Awesome! Absolutely correct.")
+else:
+  st.write("Incorrect. Please revise the chapter.")
+  st.write(f"Correct answer is {correct_ans}")
+# result=check(student_ans, correct_ans)
 
   # check= st.button("Check")
 
