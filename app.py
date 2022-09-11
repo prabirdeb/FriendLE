@@ -370,6 +370,6 @@ if question or st.session_state.load_state:
   result=check(student_ans, correct_ans)
     
   if(st.button('Check')):
-    st.session_state.load_state=True
+    st.session_state.load_state=False
     st.write(result)
 
