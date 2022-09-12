@@ -105,25 +105,7 @@ def id_lst(cl, medium):
   
     result=list(student_data[(student_data.Class==cl) & (student_data.Medium==medium)]["ID"].unique())
     result = [x for x in result if str(x) != 'nan']
-
-    if medium=="English" and "Hindi" in result:
-      result.remove("Hindi")
-
-    if medium=="English" and "hindi" in result:
-      result.remove("hindi")
-
-    if medium=="English" and "Bengali" in result:
-      result.remove("Bengali")
-
-    if medium=="English" and "bengali" in result:
-      result.remove("bengali")
-
-    if medium=="English" and "Sanskrit" in result:
-      result.remove("Sanskrit")
-
-    if medium=="English" and "sanskrit" in result:
-      result.remove("sanskrit")
-      
+    
     
   except:
     result=[]
@@ -159,6 +141,24 @@ def subject_lst(id, medium):
 
     result=list(individual_student_data["Subjects"].unique())
     result = [x for x in result if str(x) != 'nan']
+
+    if medium=="English" and "Hindi" in result:
+      result.remove("Hindi")
+
+    if medium=="English" and "hindi" in result:
+      result.remove("hindi")
+
+    if medium=="English" and "Bengali" in result:
+      result.remove("Bengali")
+
+    if medium=="English" and "bengali" in result:
+      result.remove("bengali")
+
+    if medium=="English" and "Sanskrit" in result:
+      result.remove("Sanskrit")
+
+    if medium=="English" and "sanskrit" in result:
+      result.remove("sanskrit")
     
   except:
     result=[]
