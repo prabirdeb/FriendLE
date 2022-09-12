@@ -87,7 +87,7 @@ def medium_lst(cl):
     result=[]
   return result
 
-def id_lst(cl,medium):
+def id_lst(cl, medium):
   try:
     # Importing libraries
     import numpy as np
@@ -105,12 +105,31 @@ def id_lst(cl,medium):
   
     result=list(student_data[(student_data.Class==cl) & (student_data.Medium==medium)]["ID"].unique())
     result = [x for x in result if str(x) != 'nan']
+
+    if medium=="English" and "Hindi" in result:
+      result.remove("Hindi")
+
+    if medium=="English" and "hindi" in result:
+      result.remove("hindi")
+
+    if medium=="English" and "Bengali" in result:
+      result.remove("Bengali")
+
+    if medium=="English" and "bengali" in result:
+      result.remove("bengali")
+
+    if medium=="English" and "Sanskrit" in result:
+      result.remove("Sanskrit")
+
+    if medium=="English" and "sanskrit" in result:
+      result.remove("sanskrit")
+      
     
   except:
     result=[]
   return result
 
-def subject_lst(id):
+def subject_lst(id, medium):
   try:
     # Importing libraries
     import numpy as np
@@ -330,7 +349,7 @@ medium = st.selectbox("Medium", medium_lst(cl))
 
 id = st.selectbox("Your ID", id_lst(cl, medium)) 
 
-subject = st.multiselect("Subject ", subject_lst(id)) 
+subject = st.multiselect("Subject ", subject_lst(id, medium)) 
 
 topic = st.multiselect("Topic ", topic_lst(id, subject))
 
