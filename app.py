@@ -358,7 +358,7 @@ question= st.button("Get Question")
 if "load_state" not in st.session_state:
   st.session_state.load_state=False
 
-if question: # when any button is pressed in streamlit,code runs from the begining
+if question or st.session_state.load_state: # when any button is pressed in streamlit,code runs from the begining
   st.session_state.load_state=True
   st.write(ques_ans[0])
   ques = ques_ans[0]
