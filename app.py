@@ -334,8 +334,6 @@ import streamlit as st # All the text cell will be displayed after this import s
 
 st.title("Welcome to FillGap Practice !!")
 
-# st.session_state
-
 cl = st.selectbox("Class", cl_lst()) 
 
 medium = st.selectbox("Medium", medium_lst(cl)) 
@@ -353,22 +351,26 @@ add_bg_from_local('fillgap.png')
 question= st.button("Get Question")  
 
 # Initialize session state to stop refreshing the page when second button is pressed
-# if "load_state" not in st.session_state:
-st.session_state.load_state=True
+if "load_state" not in st.session_state:
+  st.session_state.load_state=False
 
-if question and st.session_state.load_state: # when any button is pressed in streamlit,code runs from the begining
+if question or st.session_state.load_state: # when any button is pressed in streamlit,code runs from the begining
   st.session_state.load_state=True
   ques_ans = fill_gap(id, subject, topic)
   st.write(ques_ans[0])
-  ques = ques_ans[0]
-  correct_ans = ques_ans[1]
-  student_ans = st.text_input("Type your answer")
-  student_ans=student_ans.title()
-  result=check(student_ans, correct_ans)
-  st.session_state.result=result
+
+ques = ques_ans[0]
+correct_ans = ques_ans[1]
+student_ans = st.text_input("Type your answer")
+student_ans=student_ans.title()
+result=check(student_ans, correct_ans)
+st.session_state.result=result
 
 check= st.button("Check")
 
-if check or st.session_state.load_state:
+if check:
+  st.session_state.load_state=False
   st.write(st.session_state.result)
+
+st.write(st.session_state)
 
