@@ -348,14 +348,10 @@ add_bg_from_local('fillgap.png')
 
 question= st.button("Get Question")  
 
-# Initialize session state to stop refreshing the page when second button is pressed
-# if "load_state" not in st.session_state:
-# st.session_state.load_state=False
-
-# or st.session_state.load_state
+st.session_state.load_state=False
 
 if question: # when any button is pressed in streamlit,code runs from the begining
-  # st.session_state.load_state=True
+  st.session_state.load_state=True
   ques_ans = fill_gap(id, subject, topic)
   st.write(ques_ans[0])
   ques = ques_ans[0]
@@ -366,7 +362,7 @@ if question: # when any button is pressed in streamlit,code runs from the begini
 student_ans = st.text_input("Type your answer")
 st.session_state.student_ans=student_ans
 
-if len(st.session_state.student_ans)>0:
+if len(st.session_state.student_ans)>0 and st.session_state.load_state=False:
   result=check(st.session_state.student_ans, st.session_state.correct_ans)
   st.session_state.result=result
   st.write("Question:")
