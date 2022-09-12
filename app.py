@@ -303,15 +303,15 @@ def fill_gap(id, subject, topic):
   
   return ques, ans
 
-def check(student_ans, ans):
-  student_ans=student_ans.lower()
-  if student_ans==ans:
-    # c=c+10
-    result=f"Awesome! Absolutely correct.\nCorrect answer is {ans}" # \nYour total score: {c}
-  else:
-    # c=c-10
-    result=f"Incorrect. Please revise the chapter.\nCorrect answer is {ans}" # \nYour total score: {c}
-  return result
+# def check(student_ans, ans):
+#   student_ans=student_ans.lower()
+#   if student_ans==ans:
+#     # c=c+10
+#     result=f"Awesome! Absolutely correct.\nCorrect answer is {ans}" # \nYour total score: {c}
+#   else:
+#     # c=c-10
+#     result=f"Incorrect. Please revise the chapter.\nCorrect answer is {ans}" # \nYour total score: {c}
+#   return result
 
 import base64
 def add_bg_from_local(image_file):
@@ -348,10 +348,10 @@ add_bg_from_local('fillgap.png')
 
 question= st.button("Get Question")  
 
-st.session_state.load_state=False
+if "score" not in st.session_state:
+  st.session_state.score=0
 
 if question: # when any button is pressed in streamlit,code runs from the begining
-  st.session_state.load_state=True
   ques_ans = fill_gap(id, subject, topic)
   st.write(ques_ans[0])
   ques = ques_ans[0]
@@ -359,16 +359,31 @@ if question: # when any button is pressed in streamlit,code runs from the begini
   st.session_state.ques=ques
   st.session_state.correct_ans=correct_ans
 
-student_ans = st.text_input("Type your answer")
+student_ans = st.text_input("Type your answer (clear your ans before getting new question)")
 st.session_state.student_ans=student_ans
 
-if len(st.session_state.student_ans)>0 and st.session_state.load_state=False:
-  result=check(st.session_state.student_ans, st.session_state.correct_ans)
-  st.session_state.result=result
-  st.write("Question:")
-  st.write(st.session_state.ques)
-  st.write("Result:")
-  st.write(st.session_state.result)
+if len(st.session_state.student_ans)>0:
+  if st.session_state.student_ans==st.session_state.correct_ans:
+    st.write("Question:")
+    st.write(st.session_state.ques)
+    st.write("Result:")
+    st.write(f"Awesome! Absolutely correct.\nCorrect answer is {st.session_state.correct_ans}")
+    st.session_state.score=st.session_state.score+10
+    st.write(f"Your total score {st.session_state.score}")
+  else:
+    st.write("Question:")
+    st.write(st.session_state.ques)
+    st.write("Result:")
+    st.write(f"Incorrect. Please revise the chapter.\nCorrect answer is {st.session_state.correct_ans}")
+    st.session_state.score=st.session_state.score-10
+    st.write(f"Your total score {st.session_state.score}")
+  
+  # result=check(st.session_state.student_ans, st.session_state.correct_ans)
+  # st.session_state.result=result
+  # st.write("Question:")
+  # st.write(st.session_state.ques)
+  # st.write("Result:")
+  # st.write(st.session_state.result)
 
 
 
