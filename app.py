@@ -357,24 +357,30 @@ st.write(ques_ans[0])
 student_ans = st.text_input("Type your answer")
 student_ans=student_ans.title()
 
-question= st.button("Get Question")
+if student_ans==ques_ans[1]:
+  st.write(f"Awesome! Absolutely correct.\nCorrect answer is {ques_ans[1]}")
 
-# Initialize session state to stop refreshing the page when second button is pressed
-if "load_state" not in st.session_state:
-  st.session_state.load_state=False
+else:
+  st.write(f"Incorrect. Please revise the chapter.\nCorrect answer is {ques_ans[1]}")
 
-if question or st.session_state.load_state: # when any button is pressed in streamlit,code runs from the begining
-  st.session_state.load_state=True
-  st.write(ques_ans[0])
-  ques = ques_ans[0]
-  correct_ans = ques_ans[1]
-  student_ans = st.text_input("Type your answer")
-  student_ans=student_ans.title()
-  result=check(student_ans, correct_ans)
-  check= st.button("Check")
+# question= st.button("Get Question")
 
-  if check and st.session_state.load_state:
-    st.write(result)
+# # # Initialize session state to stop refreshing the page when second button is pressed
+# # if "load_state" not in st.session_state:
+# #   st.session_state.load_state=False
+
+# if question or st.session_state.load_state: # when any button is pressed in streamlit,code runs from the begining
+#   st.session_state.load_state=True
+#   st.write(ques_ans[0])
+#   ques = ques_ans[0]
+#   correct_ans = ques_ans[1]
+#   student_ans = st.text_input("Type your answer")
+#   student_ans=student_ans.title()
+#   result=check(student_ans, correct_ans)
+#   check= st.button("Check")
+
+#   if check and st.session_state.load_state:
+#     st.write(result)
 
 # # Initialize session state to stop refreshing the page when second button is pressed
 # if "load_state" not in st.session_state:
