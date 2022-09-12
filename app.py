@@ -362,13 +362,13 @@ if question or st.session_state.load_state: # when any button is pressed in stre
   correct_ans = ques_ans[1]
   st.session_state.ques=ques
   st.session_state.correct_ans=correct_ans
-  student_ans = st.text_input("Type your answer")
-  student_ans=student_ans.title()
-  st.session_state.student_ans=student_ans
+
+student_ans = st.text_input("Type your answer")
+st.session_state.student_ans=student_ans
 
 check= st.button("Check")
 
-if check:
+if check or st.session_state.load_state:
   st.session_state.load_state=False
   result=check(st.session_state.student_ans, st.session_state.correct_ans)
   st.session_state.result=result
