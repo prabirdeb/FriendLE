@@ -348,39 +348,21 @@ subject = st.multiselect("Subject ", subject_lst(id))
 
 topic = st.multiselect("Topic ", topic_lst(id, subject))
 
-ques_ans = fill_gap(id, subject, topic)
-
 add_bg_from_local('fillgap.png')   
 
-st.write(ques_ans[0])
+question= st.button("Get Question")
 
-student_ans = st.text_input("Type your answer")
-student_ans=student_ans.title()
+if question: # when any button is pressed in streamlit,code runs from the begining
+  ques_ans = fill_gap(id, subject, topic)
+  st.write(ques_ans[0])
+  ques = ques_ans[0]
+  correct_ans = ques_ans[1]
+  student_ans = st.text_input("Type your answer")
+  student_ans=student_ans.title()
+  result=check(student_ans, correct_ans)
+  st.write(result)
 
-if student_ans==ques_ans[1]:
-  st.write(f"Awesome! Absolutely correct.\nCorrect answer is {ques_ans[1]}")
-
-else:
-  st.write(f"Incorrect. Please revise the chapter.\nCorrect answer is {ques_ans[1]}")
-
-# question= st.button("Get Question")
-
-# # # Initialize session state to stop refreshing the page when second button is pressed
-# # if "load_state" not in st.session_state:
-# #   st.session_state.load_state=False
-
-# if question or st.session_state.load_state: # when any button is pressed in streamlit,code runs from the begining
-#   st.session_state.load_state=True
-#   st.write(ques_ans[0])
-#   ques = ques_ans[0]
-#   correct_ans = ques_ans[1]
-#   student_ans = st.text_input("Type your answer")
-#   student_ans=student_ans.title()
-#   result=check(student_ans, correct_ans)
-#   check= st.button("Check")
-
-#   if check and st.session_state.load_state:
-#     st.write(result)
+    
 
 # # Initialize session state to stop refreshing the page when second button is pressed
 # if "load_state" not in st.session_state:
