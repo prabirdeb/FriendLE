@@ -365,6 +365,8 @@ student_ans = st.text_input("Type your answer")
 st.session_state.student_ans=student_ans
 
 if len(st.session_state.student_ans)>0:
+  result=check(st.session_state.student_ans, st.session_state.correct_ans)
+  st.session_state.result=result
   st.write(st.session_state.result)
 
 # check= st.button("Check")
