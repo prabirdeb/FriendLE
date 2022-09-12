@@ -303,16 +303,6 @@ def fill_gap(id, subject, topic):
   
   return ques, ans
 
-# def check(student_ans, ans):
-#   student_ans=student_ans.lower()
-#   if student_ans==ans:
-#     # c=c+10
-#     result=f"Awesome! Absolutely correct.\nCorrect answer is {ans}" # \nYour total score: {c}
-#   else:
-#     # c=c-10
-#     result=f"Incorrect. Please revise the chapter.\nCorrect answer is {ans}" # \nYour total score: {c}
-#   return result
-
 import base64
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as image_file:
@@ -377,15 +367,4 @@ if len(st.session_state.student_ans)>0:
     st.write(f"Incorrect. Please revise the chapter.\nCorrect answer is {st.session_state.correct_ans}")
     st.session_state.score=st.session_state.score-10
     st.write(f"Your total score {st.session_state.score}")
-  
-  # result=check(st.session_state.student_ans, st.session_state.correct_ans)
-  # st.session_state.result=result
-  # st.write("Question:")
-  # st.write(st.session_state.ques)
-  # st.write("Result:")
-  # st.write(st.session_state.result)
-
-
-
-st.write(st.session_state)
 
