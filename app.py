@@ -350,10 +350,12 @@ question= st.button("Get Question")
 
 # Initialize session state to stop refreshing the page when second button is pressed
 # if "load_state" not in st.session_state:
-st.session_state.load_state=False
+# st.session_state.load_state=False
 
-if question or st.session_state.load_state: # when any button is pressed in streamlit,code runs from the begining
-  st.session_state.load_state=True
+# or st.session_state.load_state
+
+if question: # when any button is pressed in streamlit,code runs from the begining
+  # st.session_state.load_state=True
   ques_ans = fill_gap(id, subject, topic)
   st.write(ques_ans[0])
   ques = ques_ans[0]
