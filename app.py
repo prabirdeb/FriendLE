@@ -367,15 +367,12 @@ st.session_state.student_ans=student_ans
 if len(st.session_state.student_ans)>0:
   result=check(st.session_state.student_ans, st.session_state.correct_ans)
   st.session_state.result=result
+  st.write("Question:")
+  st.write(st.session_state.ques)
+  st.write("Result:")
   st.write(st.session_state.result)
 
-# check= st.button("Check")
 
-# if check or st.session_state.load_state:
-#   st.session_state.load_state=False
-#   result=check(st.session_state.student_ans, st.session_state.correct_ans)
-#   st.session_state.result=result
-#   st.write(st.session_state.result)
 
 st.write(st.session_state)
 
