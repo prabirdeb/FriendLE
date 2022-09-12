@@ -340,8 +340,6 @@ medium = st.selectbox("Medium", medium_lst(cl))
 
 id = st.selectbox("Your ID", id_lst(cl, medium)) 
 
-# id = st.number_input("Your ID", min_value=1000000, step=1)
-
 subject = st.multiselect("Subject ", subject_lst(id)) 
 
 topic = st.multiselect("Topic ", topic_lst(id, subject))
@@ -351,8 +349,8 @@ add_bg_from_local('fillgap.png')
 question= st.button("Get Question")  
 
 # Initialize session state to stop refreshing the page when second button is pressed
-if "load_state" not in st.session_state:
-  st.session_state.load_state=False
+# if "load_state" not in st.session_state:
+st.session_state.load_state=False
 
 if question or st.session_state.load_state: # when any button is pressed in streamlit,code runs from the begining
   st.session_state.load_state=True
@@ -366,13 +364,16 @@ if question or st.session_state.load_state: # when any button is pressed in stre
 student_ans = st.text_input("Type your answer")
 st.session_state.student_ans=student_ans
 
-check= st.button("Check")
-
-if check or st.session_state.load_state:
-  st.session_state.load_state=False
-  result=check(st.session_state.student_ans, st.session_state.correct_ans)
-  st.session_state.result=result
+if len(st.session_state.student_ans)>0:
   st.write(st.session_state.result)
+
+# check= st.button("Check")
+
+# if check or st.session_state.load_state:
+#   st.session_state.load_state=False
+#   result=check(st.session_state.student_ans, st.session_state.correct_ans)
+#   st.session_state.result=result
+#   st.write(st.session_state.result)
 
 st.write(st.session_state)
 
