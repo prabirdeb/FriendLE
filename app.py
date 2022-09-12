@@ -358,13 +358,13 @@ if question or st.session_state.load_state: # when any button is pressed in stre
   st.session_state.load_state=True
   ques_ans = fill_gap(id, subject, topic)
   st.write(ques_ans[0])
+  ques = ques_ans[0]
+  correct_ans = ques_ans[1]
 
-ques = ques_ans[0]
-correct_ans = ques_ans[1]
-student_ans = st.text_input("Type your answer")
-student_ans=student_ans.title()
-result=check(student_ans, correct_ans)
-st.session_state.result=result
+  student_ans = st.text_input("Type your answer")
+  student_ans=student_ans.title()
+  result=check(student_ans, correct_ans)
+  st.session_state.result=result
 
 check= st.button("Check")
 
