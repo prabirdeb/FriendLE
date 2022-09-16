@@ -366,10 +366,10 @@ if question: # when any button is pressed in streamlit,code runs from the begini
   ques = ques_ans[0]
   correct_ans = ques_ans[1]
   st.session_state.ques=ques
-  st.session_state.correct_ans=correct_ans
+  st.session_state.correct_ans=correct_ans.lower()
 
 student_ans = st.text_input("Type your answer (clear your ans before getting new question)")
-st.session_state.student_ans=student_ans
+st.session_state.student_ans=student_ans.strip().lower()
 
 if len(st.session_state.student_ans)>0:
   if st.session_state.student_ans==st.session_state.correct_ans:
