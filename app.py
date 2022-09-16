@@ -49,6 +49,18 @@ def text_process(text):
 
   return text
 
+# writing stemming function
+def stem(word):
+  from nltk.stem.snowball import SnowballStemmer
+  try:
+    stemmer = SnowballStemmer("english") 
+    text = stemmer.stem(word)
+    
+  except:
+    text=text
+
+  return text
+
 def cl_lst():
   try:
     # Importing libraries
@@ -380,7 +392,7 @@ student_ans = st.text_input("Type your answer (clear your ans before getting new
 st.session_state.student_ans=student_ans.strip().lower()
 
 if len(st.session_state.student_ans)>0:
-  if st.session_state.student_ans==st.session_state.correct_ans or st.session_state.student_ans==st.session_state.correct_ans[:-2] or st.session_state.student_ans==st.session_state.correct_ans[:-1]:
+  if stem(st.session_state.student_ans)==stem(st.session_state.correct_ans):
     st.write("Question:")
     st.write(st.session_state.ques)
     st.write("Result:")
