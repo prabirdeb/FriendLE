@@ -380,7 +380,7 @@ student_ans = st.text_input("Type your answer (clear your ans before getting new
 st.session_state.student_ans=student_ans.strip().lower()
 
 if len(st.session_state.student_ans)>0:
-  if st.session_state.student_ans==st.session_state.correct_ans:
+  if st.session_state.student_ans==st.session_state.correct_ans or st.session_state.student_ans==st.session_state.correct_ans[:-2]:
     st.write("Question:")
     st.write(st.session_state.ques)
     st.write("Result:")
