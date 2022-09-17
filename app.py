@@ -242,6 +242,17 @@ def topic_lst(id, subject):
   
   return result
 
+def inspire():
+  try:
+    import random
+    lst=["Awesome!","Wonderful!","Stunning!","Spectacular!","Miraculous!","Majestic!","Inspiring!","Amazing!","Astonishing!","Astounding!","Breathtaking!","Imposing!","Marvelous!","Incredible!","Fascinating!","Fabulous!","Excellent!","Unbelievable!","Fantastic"]
+    random.shuffle(lst)
+    res=lst[0]
+
+  except:
+    res="Awesome!"
+  return res
+
 # Writing main function
 
 def fill_gap(id, subject, topic):
@@ -397,7 +408,7 @@ if len(st.session_state.student_ans)>0:
     st.write("Question:")
     st.write(st.session_state.ques)
     st.write("Result:")
-    st.write(f"Awesome! Absolutely correct.\nCorrect answer is {st.session_state.correct_ans}")
+    st.write(f"{inspire()} Absolutely correct.\nCorrect answer is {st.session_state.correct_ans}")
     st.session_state.score=st.session_state.score+10
     st.write(f"Your total score {st.session_state.score}")
   else:
