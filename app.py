@@ -245,7 +245,7 @@ def topic_lst(id, subject):
 def inspire():
   try:
     import random
-    lst=["Awesome!","Wonderful!","Stunning!","Spectacular!","Miraculous!","Majestic!","Inspiring!","Amazing!","Astonishing!","Astounding!","Breathtaking!","Imposing!","Marvelous!","Incredible!","Fascinating!","Fabulous!","Excellent!","Unbelievable!","Fantastic"]
+    lst=["Superb!","Mind-blowing!","Awesome!","Wonderful!","Stunning!","Spectacular!","Miraculous!","Majestic!","Inspiring!","Amazing!","Astonishing!","Astounding!","Breathtaking!","Imposing!","Marvelous!","Incredible!","Fascinating!","Fabulous!","Excellent!","Unbelievable!","Fantastic!"]
     random.shuffle(lst)
     res=lst[0]
 
@@ -408,14 +408,16 @@ if len(st.session_state.student_ans)>0:
     st.write("Question:")
     st.write(st.session_state.ques)
     st.write("Result:")
-    st.write(f"{inspire()} Absolutely correct.\nCorrect answer is {st.session_state.correct_ans}")
+    st.write(f"{inspire()} Absolutely correct.")
+    st.write(f"Correct answer is {st.session_state.correct_ans}")
     st.session_state.score=st.session_state.score+10
     st.write(f"Your total score {st.session_state.score}")
   else:
     st.write("Question:")
     st.write(st.session_state.ques)
     st.write("Result:")
-    st.write(f"Incorrect. Please revise the chapter.\nCorrect answer is {st.session_state.correct_ans}")
+    st.write(f"Incorrect. Please revise the chapter.")
+    st.write(f"Correct answer is {st.session_state.correct_ans}")
     st.session_state.score=st.session_state.score-10
     st.write(f"Your total score {st.session_state.score}")
 
