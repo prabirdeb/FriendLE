@@ -393,6 +393,7 @@ st.session_state.student_ans=student_ans.strip().lower()
 
 if len(st.session_state.student_ans)>0:
   if stem(st.session_state.student_ans)==stem(st.session_state.correct_ans):
+    st.balloons()
     st.write("Question:")
     st.write(st.session_state.ques)
     st.write("Result:")
