@@ -336,9 +336,22 @@ def fill_gap(id, subject, topic):
         ans=lst[0]
         
         ans_index=original_text.lower().split().index(ans)
-        original_text=original_text.split()
-        original_text[ans_index]="_____"
-        ques=" ".join(original_text)
+        original_text1=original_text.split("\n")
+        original_text2=[]
+        for k in original_text1:
+          original_text2.append(k.split())
+        c=0
+        for k in original_text2:
+          ans_index=ans_index-len(k)
+          if ans_index<0:
+            original_text2[c][ans_index]="_____"
+            break
+          c+=1
+        ques=[" ".join(k) for k in original_text2]
+        ques="\n".join(ques)
+        # original_text=original_text.split()
+        # original_text[ans_index]="_____"
+        # ques=" ".join(original_text)
         
       else:
         ques="Ask question again. Concept found is very poor in strength:("
@@ -406,7 +419,9 @@ if len(st.session_state.student_ans)>0:
   if stem(st.session_state.student_ans)==stem(st.session_state.correct_ans):
     st.balloons()
     st.write("Question:")
-    st.write(st.session_state.ques)
+    for k in st.session_state.ques.split("\n"):
+      st.write(k)
+    # st.write(st.session_state.ques)
     st.write("Result:")
     st.write(f"{inspire()} Absolutely correct.")
     st.write(f"Correct answer is {st.session_state.correct_ans}")
@@ -414,7 +429,9 @@ if len(st.session_state.student_ans)>0:
     st.write(f"Your total score {st.session_state.score}")
   else:
     st.write("Question:")
-    st.write(st.session_state.ques)
+    for k in st.session_state.ques.split("\n"):
+      st.write(k)
+    # st.write(st.session_state.ques)
     st.write("Result:")
     st.write(f"Incorrect. Please revise the chapter.")
     st.write(f"Correct answer is {st.session_state.correct_ans}")
