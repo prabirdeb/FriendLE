@@ -349,10 +349,7 @@ def fill_gap(id, subject, topic):
           c+=1
         ques=[" ".join(k) for k in original_text2]
         ques="\n".join(ques)
-        # original_text=original_text.split()
-        # original_text[ans_index]="_____"
-        # ques=" ".join(original_text)
-        
+                
       else:
         ques="Ask question again. Concept found is very poor in strength:("
         ans=""
@@ -406,7 +403,9 @@ if "score" not in st.session_state:
 
 if question: # when any button is pressed in streamlit,code runs from the begining
   ques_ans = fill_gap(id, subject, topic)
-  st.write(ques_ans[0])
+  for k in ques_ans[0].split("\n"):
+      st.write(k)
+  # st.write(ques_ans[0])
   ques = ques_ans[0]
   correct_ans = ques_ans[1]
   st.session_state.ques=ques
@@ -421,7 +420,7 @@ if len(st.session_state.student_ans)>0:
     st.write("Question:")
     for k in st.session_state.ques.split("\n"):
       st.write(k)
-    # st.write(st.session_state.ques)
+    
     st.write("Result:")
     st.write(f"{inspire()} Absolutely correct.")
     st.write(f"Correct answer is {st.session_state.correct_ans}")
@@ -431,7 +430,7 @@ if len(st.session_state.student_ans)>0:
     st.write("Question:")
     for k in st.session_state.ques.split("\n"):
       st.write(k)
-    # st.write(st.session_state.ques)
+    
     st.write("Result:")
     st.write(f"Incorrect. Please revise the chapter.")
     st.write(f"Correct answer is {st.session_state.correct_ans}")
