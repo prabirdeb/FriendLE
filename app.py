@@ -9,14 +9,50 @@ Original file is located at
 
 # Writing helper functions
 
-# import nltk
-# nltk.download('wordnet')
-# from nltk.corpus import wordnet
-# wordnet.synsets('dog')
-# syns = wordnet.synsets("program")
-# w1 = wordnet.synset('ship.n.01')
-# w2 = wordnet.synset('boat.n.01') # n denotes noun
-# print(w1.wup_similarity(w2))
+# Function for finding similarity score between two words
+
+def similar(word1,word2):
+  try:
+    # Importing libraries
+    import nltk
+    nltk.download('wordnet')
+    nltk.download('omw-1.4')
+    from nltk.corpus import wordnet
+
+    # Finding the index of word1
+    word1=word1.lower()
+    len_word1=len(word1)
+    index=len("Synset('")+len_word1+1
+    text="Synset('"+word1+"."
+    doc1 = [k for k in wordnet.synsets(word1) if str(k)[:index]==text]
+
+    # Finding the index of word2
+    word2=word2.lower()
+    len_word2=len(word2)
+    index=len("Synset('")+len_word2+1
+    text="Synset('"+word2+"."
+    doc2 = [k for k in wordnet.synsets(word2) if str(k)[:index]==text]
+    
+    # Finding the similarity score
+    if len(doc1)>0:
+      doc1=doc1[0]
+    elif len(wordnet.synsets(word1))>0:
+      doc1=wordnet.synsets(word1)[0]
+    else:
+      doc1=wordnet.synsets("up")[0]  # when word is not found in nltk
+
+    if len(doc2)>0:
+      doc2=doc2[0]
+    elif len(wordnet.synsets(word2))>0:
+      doc2=wordnet.synsets(word2)[0]
+    else:
+      doc2=wordnet.synsets("down")[0] # when word is not found in nltk
+
+    score=doc1.wup_similarity(doc2)
+    
+  except:
+    score=0
+  return score
 
 # writing text pre-processing function
 def text_process(text):
@@ -448,7 +484,7 @@ student_ans = st.text_input("Type your answer (clear your ans before getting new
 st.session_state.student_ans=student_ans.strip().lower()
 
 if len(st.session_state.student_ans)>0:
-  if stem(st.session_state.student_ans)==stem(st.session_state.correct_ans):
+  if stem(st.session_state.student_ans)==stem(st.session_state.correct_ans) or similar(st.session_state.student_ans,st.session_state.correct_ans)>=0.5:
     st.balloons()
     st.write("Question:")
     for k in st.session_state.ques.split("\n"):
