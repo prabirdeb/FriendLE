@@ -326,6 +326,9 @@ def fill_gap(id, subject, topic):
       random.shuffle(index_lst)
       original_text=subject_data.documents[index_lst[0]]
 
+      # Removing image link from original text
+      original_text="\n".join([k for k in original_text.split("\n") if k[:4]!="http"])
+
       # Generating answer and question
       # Random selection of question
       import random
@@ -336,7 +339,7 @@ def fill_gap(id, subject, topic):
         ans=lst[0]
         
         ans_index=original_text.lower().split().index(ans)
-        original_text1=original_text.split("\n")
+        original_text1=original_text.split("\n")  # code for retaining the structure of concepts entered by students
         original_text2=[]
         for k in original_text1:
           original_text2.append(k.split())
