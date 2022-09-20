@@ -484,7 +484,7 @@ student_ans = st.text_input("Type your answer (clear your ans before getting new
 st.session_state.student_ans=student_ans.strip().lower()
 
 if len(st.session_state.student_ans)>0:
-  if stem(st.session_state.student_ans)==stem(st.session_state.correct_ans) or similar(st.session_state.student_ans,st.session_state.correct_ans)>=0.5:
+  if stem(st.session_state.student_ans)==stem(st.session_state.correct_ans) or similar(st.session_state.student_ans,st.session_state.correct_ans)>=0.9:
     st.balloons()
     st.write("Question:")
     for k in st.session_state.ques.split("\n"):
