@@ -170,27 +170,46 @@ def subject_lst(id, medium):
     individual_student_data = pd.read_csv(gsheet_url)
     individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
 
-    result=list(individual_student_data["Subjects"].unique())
-    result = [x for x in result if str(x) != 'nan']
+    subject=list(individual_student_data["Subjects"].unique())
+    subject = [x for x in subject if str(x) != 'nan']
 
-    if medium=="English" and "Hindi" in result:
-      result.remove("Hindi")
+    if medium=="English" and "Hindi" in subject:
+      subject.remove("Hindi")
 
-    if medium=="English" and "hindi" in result:
-      result.remove("hindi")
+    if medium=="English" and "hindi" in subject:
+      subject.remove("hindi")
 
-    if medium=="English" and "Bengali" in result:
-      result.remove("Bengali")
+    if medium=="English" and "Bengali" in subject:
+      subject.remove("Bengali")
 
-    if medium=="English" and "bengali" in result:
-      result.remove("bengali")
+    if medium=="English" and "bengali" in subject:
+      subject.remove("bengali")
 
-    if medium=="English" and "Sanskrit" in result:
-      result.remove("Sanskrit")
+    if medium=="English" and "Sanskrit" in subject:
+      subject.remove("Sanskrit")
 
-    if medium=="English" and "sanskrit" in result:
-      result.remove("sanskrit")
-    
+    if medium=="English" and "sanskrit" in subject:
+      subject.remove("sanskrit")
+
+    # Getting the subjects where atleast 5 concepts present
+    relevant_features=['Concept-1', 'Concept-2', 'Concept-3', 'Concept-4', 'Concept-5',
+    'Concept-6', 'Concept-7', 'Concept-8', 'Concept-9', 'Concept-10',
+    'Concept-11', 'Concept-12', 'Concept-13', 'Concept-14', 'Concept-15',
+    'Concept-16', 'Concept-17', 'Concept-18', 'Concept-19', 'Concept-20']
+
+    result=[]
+    for sub in subject: 
+      concepts_d=individual_student_data[(individual_student_data.Subjects==sub)]
+      concepts_d=concepts_d[relevant_features]
+      concepts_d=pd.DataFrame(concepts_d.values.flatten(), columns=['documents'])
+      concepts_d.dropna(inplace=True) 
+      concepts_d=concepts_d[(concepts_d['documents']!='\n')]
+      concepts_d=concepts_d[(concepts_d['documents']!='\n\n')]
+      concepts_d=concepts_d[(concepts_d['documents']!='No data')].reset_index()
+      concepts_d.drop('index',axis=1, inplace=True)
+      if concepts_d.shape[0]>=5:
+        result.append(sub)
+  
   except:
     result=[]
 
