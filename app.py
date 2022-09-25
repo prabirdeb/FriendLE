@@ -404,7 +404,13 @@ def fill_gap(id, subject, topic):
         random.shuffle(lst)
         ans=lst[0]
         
-        ans_index=original_text.lower().split().index(ans)
+        # !"#$&\',;?@\\_` considering these characters at the start and end of answer
+        for k in original_text.lower().split():
+          if k==ans or k==ans+"," or k==","+ans or k==ans+";" or k==";"+ans or k==ans+"?" or k=="?"+ans or k==ans+"#" or k=="#"+ans or k==ans+"!" or k=="!"+ans or k==ans+"'" or k=="'"+ans or k==ans+"@" or k=="@"+ans or k==ans+"&" or k=="&"+ans or k==ans+"_" or k=="_"+ans:
+            ans_index = original_text.lower().split().index(k)
+            break
+
+        # ans_index=original_text.lower().split().index(ans)
         original_text1=original_text.split("\n")  # code for retaining the structure of concepts entered by students
         original_text2=[]
         for k in original_text1:
