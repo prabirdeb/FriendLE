@@ -110,6 +110,12 @@ def stem(word):
     elif word[:1]=="[" and word[-1:]=="]":
       word=word[1:-1]
 
+    elif word[:1]=="(" or word[:1]=="{" or word[:1]=="[":
+      word=word[1:]
+
+    elif word[-1:]==")" or word[-1:]=="}" or word[-1:]=="]":
+      word=word[:-1]
+
     stemmer = SnowballStemmer("english") 
     text = stemmer.stem(word)
         
