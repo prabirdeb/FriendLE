@@ -417,14 +417,22 @@ def fill_gap(id, subject, topic):
       # Removing image link from original text
       original_text="\n".join([k for k in original_text.split("\n") if k[:4]!="http"])
 
+      # Finding the numerical values
+      import re      
+      numbers=re.findall(r"[-+]?(?:\d*\.\d+|\d+)", original_text)
+      
       # Generating answer and question
       # Random selection of question
       import random
       text=text_process(original_text)
       if len(text.split())>0:
-        lst=text.split()
-        random.shuffle(lst)
-        ans=lst[0]
+        if len(numbers)>=3:   # Finding the numerical problem
+          random.shuffle(numbers)
+          ans=numbers[0]
+        else:
+          lst=text.split()
+          random.shuffle(lst)
+          ans=lst[0]
         
         # !"#$&\',;?@\\_`<> considering these characters at the start and end of answer
         for k in original_text.lower().split():
