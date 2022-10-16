@@ -417,6 +417,9 @@ def fill_gap(id, subject, topic):
       # Removing image link from original text
       original_text="\n".join([k for k in original_text.split("\n") if k[:4]!="http"])
 
+      # Finding the image links
+      list_of_images=[k for k in original_text.split("\n") if k[:4]=="http"]
+
       # Finding the numerical values
       import re      
       numbers=re.findall(r"[-+]?(?:\d*\.\d+|\d+)", original_text)
@@ -466,7 +469,7 @@ def fill_gap(id, subject, topic):
     ques="Please provide correct id, subject and topic"
     ans=""
   
-  return ques, ans
+  return ques, ans, list_of_images
 
 import base64
 def add_bg_from_local(image_file):
@@ -511,9 +514,10 @@ if question: # when any button is pressed in streamlit,code runs from the begini
   for k in ques_ans[0].split("\n"):
       st.write(k)
   # st.write(ques_ans[0])
-  st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Rectangle_Geometry_Vector.svg/220px-Rectangle_Geometry_Vector.svg.png", width=400) 
-           # Manually Adjust the width of the image as per requirement
-  
+  if len(ques_ans[2])>0:
+    for image in ques_ans[2]:
+        st.image(image, width=400) # Manually Adjust the width of the image as per requirement
+    
   ques = ques_ans[0]
   correct_ans = ques_ans[1]
   st.session_state.ques=ques
