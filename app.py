@@ -511,6 +511,8 @@ if question: # when any button is pressed in streamlit,code runs from the begini
   for k in ques_ans[0].split("\n"):
       st.write(k)
   # st.write(ques_ans[0])
+  st.image("https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/6/2017/11/04133712/waterfall.jpg", width=200) 
+           # Manually Adjust the width of the image as per requirement
   ques = ques_ans[0]
   correct_ans = ques_ans[1]
   st.session_state.ques=ques
