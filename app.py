@@ -511,7 +511,7 @@ if question: # when any button is pressed in streamlit,code runs from the begini
   for k in ques_ans[0].split("\n"):
       st.write(k)
   # st.write(ques_ans[0])
-  st.image("https://drive.google.com/file/d/19-tzgixQxJKqlyvS7vuomdIG9yhp4bLj/view?usp=sharing", width=400) 
+  st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Rectangle_Geometry_Vector.svg/220px-Rectangle_Geometry_Vector.svg.png", width=400) 
            # Manually Adjust the width of the image as per requirement
   
   ques = ques_ans[0]
