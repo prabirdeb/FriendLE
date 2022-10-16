@@ -514,9 +514,9 @@ if question: # when any button is pressed in streamlit,code runs from the begini
   for k in ques_ans[0].split("\n"):
       st.write(k)
   # st.write(ques_ans[0])
-  # if len(ques_ans[2])>0:
-  #   for image in ques_ans[2]:
-  st.image(ques_ans[2][0], width=400) # Manually Adjust the width of the image as per requirement
+  if len(ques_ans[2])>0:
+    for image in ques_ans[2]:
+      st.image(image, width=400) # Manually Adjust the width of the image as per requirement
     
   ques = ques_ans[0]
   correct_ans = ques_ans[1]
