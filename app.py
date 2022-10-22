@@ -403,11 +403,11 @@ def question_type(id, subject, topic):
         # Removing image link from original text
         original_text="\n".join([k for k in original_text_old.split("\n") if k[:4]!="http"])
 
+        text=text_process(original_text)
         # Finding the numerical values
         import re      
-        numbers=re.findall(r"[-+]?(?:\d*\.\d+|\d+)", original_text)
+        numbers=re.findall(r"[-+]?(?:\d*\.\d+|\d+)", text)
       
-        text=text_process(original_text)
         if len(text.split())>0:
           if len(numbers)>=3 and 'numerical' not in result:   # Finding the numerical problem
             result.append('numerical')
@@ -505,11 +505,11 @@ def fill_gap(id, subject, topic, ques_type):
       
       for original_text in subject_data.documents:
 
+        text=text_process(original_text)
         # Finding the numerical values
         import re      
-        numbers=re.findall(r"[-+]?(?:\d*\.\d+|\d+)", original_text)
-      
-        text=text_process(original_text)
+        numbers=re.findall(r"[-+]?(?:\d*\.\d+|\d+)", text)
+              
         if len(text.split())>0:
           if len(numbers)>=3 and 'numerical' in ques_type:   # Finding the numerical problem
             original_text_list.append(original_text)
@@ -527,15 +527,15 @@ def fill_gap(id, subject, topic, ques_type):
       # Finding the image links
       list_of_images=[k for k in original_text_old.split("\n") if k[:4]=="http"]
     
-
+      text=text_process(original_text)
       # Finding the numerical values
       import re      
-      numbers=re.findall(r"[-+]?(?:\d*\.\d+|\d+)", original_text)
+      numbers=re.findall(r"[-+]?(?:\d*\.\d+|\d+)", text)
 
       # Generating answer and question
       # Random selection of question
       import random
-      text=text_process(original_text)
+      
       if len(text.split())>0:
         if len(numbers)>=3:   # Finding the numerical problem
           random.shuffle(numbers)
@@ -569,13 +569,16 @@ def fill_gap(id, subject, topic, ques_type):
       else:
         ques="Ask question again. Concept found is very poor in strength:("
         ans=""
+        list_of_images=[]
       
     else:
       ques="You have no concept record for this subject"
       ans=""
+      list_of_images=[]
   except:
     ques="Please provide correct id, subject and topic"
     ans=""
+    list_of_images=[]
   
   return ques, ans, list_of_images
 
