@@ -83,7 +83,7 @@ def text_process(text):
     text=[word for word in text.split() if word not in stopwords] # removing stopwords and verbs
     
     # Removing common_words
-    common_words=['shall','etc.', 'e.g.', 'eg', 'eg.','1.','2.','3.','4.','5.','6.','7.','8.','9.','10.','11.','12.','13.','14.','15.','16.','17.','18.','19.','20.','i.','ii.','iii.','iv.','v.','vi.','vii.','viii.','ix.','x.','xi.','xii.','xiii.','xiv.','xv.','xvi.','xvii.','xviii.','xix.','xx.','a.','b.','c.','d.','e.','f.','g.','h.','1)','2)','3)','4)','5)','6)','7)','8)','9)','10)','11)','12)','13)','14)','15)','16)','17)','18)','19)','20)','i)','ii)','iii)','iv)','v)','vi)','vii)','viii)','ix)','x)','xi)','xii)','xiii)','xiv)','xv)','xvi)','xvii)','xviii)','xix)','xx)','a)','b)','c)','d)','e)','f)','g)','h)','(1)','(2)','(3)','(4)','(5)','(6)','(7)','(8)','(9)','(10)','(11)','(12)','(13)','(14)','(15)','(16)','(17)','(18)','(19)','(20)','(i)','(ii)','(iii)','(iv)','(v)','(vi)','(vii)','(viii)','(ix)','(x)','(xi)','(xii)','(xiii)','(xiv)','(xv)','(xvi)','(xvii)','(xviii)','(xix)','(xx)','(a)','(b)','(c)','(d)','(e)','(f)','(g)','(h)','towards','share','along','lies','climate','throughout','aim','rule','simply','structural','system','etc','like','orderly','manner','jealous', 'ahem', 'phew', 'blue-eyed', 'usually', 'ouch', 'expeditiously', 'foolish', 'morning', 'inquisitive', 'disgusted', 'whenever', 'hastily', 'confused', 'please', 'brr', 'well', 'nasty', 'question', 'power', 'home', 'art', 'defiant', 'enormously', 'air', 'oh', 'sparkling', 'nervously', 'selfish', 'glamorous', 'eagerly', 'point', 'homely', 'dizzy', 'perfectly', 'courageous', 'tough', 'money', 'others', 'incidentally', 'until', 'hmm', 'gleefully', 'year', 'fleetingly', 'famous', 'work', 'aww', 'level', 'muddy', 'shh', 'super', 'inasmuch', 'gentle', 'silently', 'tasty', 'emphatically', 'enchanting', 'annoyed', 'defiantly', 'girl', 'fancy', 'black', 'member', 'addition', 'program', 'idea', 'sore', 'bravely', 'precious', 'community', 'here', 'embarrassed', 'huh', 'lazily', 'fine', 'nervous', 'bored', 'instantly', 'before', 'even', 'obediently', 'cheerfully', 'strange', 'disturbed', 'clumsy', 'for', 'result', 'soundlessly', 'woman', 'important', 'hungrily', 'angry', 'student', 'shoo', 'creepy', 'cruel', 'number', 'determined', 'promptly', 'adventurous', 'horrible', 'difficult', 'grumpy', 'encore', 'rather', 'briskly', 'motionless', 'pleasant', 'system', 'depressed', 'audibly', 'madly', 'bewildered', 'never', 'quietly', 'dramatically', 'rarely', 'people', 'health', 'softly', 'shiny', 'enviously', 'jittery', 'research', 'scary', 'blushing', 'bad', 'morosely', 'relieved', 'powerfully', 'that', 'game', 'drab', 'job', 'delightful', 'thoughtless', 'tediously', 'city', 'outstanding', 'yo', 'golly', 'word', 'comfortable', 'evil', 'war', 'weakly', 'honestly', 'modern', 'hour', 'handsome', 'moment', 'obedient', 'eureka', 'worried', 'still', 'mother', 'merrily', 'all', 'issue', 'warmly', 'smiling', 'hence', 'poorly', 'child', 'business', 'obnoxiously', 'history', 'back', 'stormy', 'ahh', 'casually', 'president', 'encouraging', 'amused', 'indeed', 'ugliest', 'than', 'rats', 'lot', 'soon', 'annoyingly', 'deafeningly', 'charming', 'house', 'agreeable', 'ah', 'cute', 'graceful', 'fortunately', 'foolishly', 'light', 'country', 'thing', 'gifted', 'mysterious', 'likewise', 'daily', 'curious', 'glorious', 'easy', 'father', 'splendid', 'crowded', 'calm', 'finally', 'alas', 'information', 'healthy', 'panicky', 'room', 'successful', 'yearly', 'head', 'tender', 'life', 'boldly', 'normally', 'seldom', 'smoggy', 'company', 'elegant', 'school', 'inexpensive', 'envious', 'fair', 'cruelly', 'mushy', 'joyous', 'eww', 'silence', 'name', 'grieving', 'regularly', 'law', 'gleaming', 'kid', 'though', 'average', 'day', 'faithfully', 'book', 'badly', 'selfishly', 'tomorrow', 'cloudy', 'puzzled', 'rudely', 'wandering', 'deftly', 'cheerful', 'dull', 'part', 'hourly', 'different', 'wide-eyed', 'victoriously', 'excited', 'crazily', 'elated', 'dutifully', 'frail', 'odd', 'duh', 'gradually', 'story', 'yuck', 'expensive', 'office', 'case', 'ear-splittingly', 'shy', 'quickly', 'kind', 'week', 'immediately', 'gorgeous', 'zealous', 'seriously', 'place', 'worrisome', 'anxiously', 'languidly', 'after', 'once', 'yesterday', 'stupid', 'joylessly', 'psst', 'face', 'painfully', 'exuberant', 'shrilly', 'kindly', 'aggressive', 'furthermore', 'right', 'line', 'today', 'distinct', 'if', 'gosh', 'blah', 'however', 'achingly', 'nutty', 'loudly', 'impossible', 'enthusiastic', 'provided', 'awesome', 'sternly', 'haltingly', 'resonantly', 'proud', 'eye', 'leisurely', 'repulsive', 'rapidly', 'ugly', 'old-fashioned', 'blindly', 'long', 'poor', 'condemned', 'tense', 'restlessly', 'hungry', 'shakily', 'state', 'energetic', 'plain', 'bloody', 'unsightly', 'fantastic', 'body', 'lovely', 'hopelessly', 'awful', 'as', 'victorious', 'perfect', 'hush', 'a', 'frantic', 'angrily', 'unhappily', 'coyly', 'slowly', 'lazy', 'education', 'faithful', 'speedily', 'wildly', 'swiftly', 'careful', 'arrogant', 'scat', 'talented', 'tame', 'ashamed', 'water', 'innocent', 'force', 'government', 'occasionally', 'later', 'defeated', 'weary', 'unexpectedly', 'poised', 'person', 'aha', 'teacher', 'quaint', 'homeless', 'deliberately', 'helpless', 'minute', 'dead', 'zany', 'cow', 'putrid', 'gee', 'uproariously', 'cautious', 'anxious', 'awkwardly', 'dark', 'sleepy', 'no', 'study', 'vivacious', 'doubtful', 'lucky', 'instead', 'prickly', 'end', 'silly', 'clever', 'reason', 'powerful', 'there', 'hilarious', 'hey', 'man', 'brave', 'politely', 'gracefully', 'safely', 'itchy', 'crazy', 'often', 'time', 'night', 'example', 'area', 'bright', 'eek', 'whereas', 'team', 'troubled', 'lively', 'wearily', 'guy', 'beautiful', 'hand', 'excitedly', 'fact', 'just', 'annoying', 'mortally', 'magnificent', 'service', 'dejectedly', 'thankful', 'vociferously', 'wrong', 'ill', 'problem', 'alive', 'brightly', 'blue', 'grotesque', 'frightened', 'sadly', 'since', 'parent', 'crikey', 'obnoxious', 'yippee', 'attractive', 'better', 'alert', 'hurt', 'clean', 'always', 'group', 'dangerous', 'bingo', 'eventually', 'colorful', 'enough', 'wicked', 'door', 'outrageous', 'family', 'noisily', 'combative', 'faintly', 'car', 'solemnly', 'now', 'eager', 'side', 'funny', 'consequently', 'thoughtful', 'concerned', 'upset', 'open', 'way', 'uptight', 'happy', 'month', 'holy', 'adorable', 'in', 'vivaciously', 'jealously', 'spotless', 'breakable', 'when', 'friend', 'change', 'boastfully', 'good', 'terribly', 'sometimes', 'real', 'innocently', 'wherever', 'friendly', 'naughty', 'meanwhile', 'cooperative', 'bravo', 'helpful', 'generally', 'busy', 'clear', 'phooey', 'fragile', 'nice', 'lonely', 'jolly', 'wild', 'brainy', 'party', 'uninterested', 'supposing', 'miserably', 'grief', 'tired', 'doubtfully', 'irritably', 'terrible', 'happily', 'hurriedly', 'rich', 'accidentally', 'devotedly', 'world', 'elegantly', 'mysteriously', 'nightly', 'thunderously', 'filthy', 'misty', 'inaudibly', 'noiselessly', 'ugh', 'frequently', 'fierce', 'unusual', 'resoundingly', 'vast', 'weekly', 'witty']
+    common_words=['due','shall','etc.', 'e.g.', 'eg', 'eg.','1.','2.','3.','4.','5.','6.','7.','8.','9.','10.','11.','12.','13.','14.','15.','16.','17.','18.','19.','20.','i.','ii.','iii.','iv.','v.','vi.','vii.','viii.','ix.','x.','xi.','xii.','xiii.','xiv.','xv.','xvi.','xvii.','xviii.','xix.','xx.','a.','b.','c.','d.','e.','f.','g.','h.','1)','2)','3)','4)','5)','6)','7)','8)','9)','10)','11)','12)','13)','14)','15)','16)','17)','18)','19)','20)','i)','ii)','iii)','iv)','v)','vi)','vii)','viii)','ix)','x)','xi)','xii)','xiii)','xiv)','xv)','xvi)','xvii)','xviii)','xix)','xx)','a)','b)','c)','d)','e)','f)','g)','h)','(1)','(2)','(3)','(4)','(5)','(6)','(7)','(8)','(9)','(10)','(11)','(12)','(13)','(14)','(15)','(16)','(17)','(18)','(19)','(20)','(i)','(ii)','(iii)','(iv)','(v)','(vi)','(vii)','(viii)','(ix)','(x)','(xi)','(xii)','(xiii)','(xiv)','(xv)','(xvi)','(xvii)','(xviii)','(xix)','(xx)','(a)','(b)','(c)','(d)','(e)','(f)','(g)','(h)','towards','share','along','lies','climate','throughout','aim','rule','simply','structural','system','etc','like','orderly','manner','jealous', 'ahem', 'phew', 'blue-eyed', 'usually', 'ouch', 'expeditiously', 'foolish', 'morning', 'inquisitive', 'disgusted', 'whenever', 'hastily', 'confused', 'please', 'brr', 'well', 'nasty', 'question', 'power', 'home', 'art', 'defiant', 'enormously', 'air', 'oh', 'sparkling', 'nervously', 'selfish', 'glamorous', 'eagerly', 'point', 'homely', 'dizzy', 'perfectly', 'courageous', 'tough', 'money', 'others', 'incidentally', 'until', 'hmm', 'gleefully', 'year', 'fleetingly', 'famous', 'work', 'aww', 'level', 'muddy', 'shh', 'super', 'inasmuch', 'gentle', 'silently', 'tasty', 'emphatically', 'enchanting', 'annoyed', 'defiantly', 'girl', 'fancy', 'black', 'member', 'addition', 'program', 'idea', 'sore', 'bravely', 'precious', 'community', 'here', 'embarrassed', 'huh', 'lazily', 'fine', 'nervous', 'bored', 'instantly', 'before', 'even', 'obediently', 'cheerfully', 'strange', 'disturbed', 'clumsy', 'for', 'result', 'soundlessly', 'woman', 'important', 'hungrily', 'angry', 'student', 'shoo', 'creepy', 'cruel', 'number', 'determined', 'promptly', 'adventurous', 'horrible', 'difficult', 'grumpy', 'encore', 'rather', 'briskly', 'motionless', 'pleasant', 'system', 'depressed', 'audibly', 'madly', 'bewildered', 'never', 'quietly', 'dramatically', 'rarely', 'people', 'health', 'softly', 'shiny', 'enviously', 'jittery', 'research', 'scary', 'blushing', 'bad', 'morosely', 'relieved', 'powerfully', 'that', 'game', 'drab', 'job', 'delightful', 'thoughtless', 'tediously', 'city', 'outstanding', 'yo', 'golly', 'word', 'comfortable', 'evil', 'war', 'weakly', 'honestly', 'modern', 'hour', 'handsome', 'moment', 'obedient', 'eureka', 'worried', 'still', 'mother', 'merrily', 'all', 'issue', 'warmly', 'smiling', 'hence', 'poorly', 'child', 'business', 'obnoxiously', 'history', 'back', 'stormy', 'ahh', 'casually', 'president', 'encouraging', 'amused', 'indeed', 'ugliest', 'than', 'rats', 'lot', 'soon', 'annoyingly', 'deafeningly', 'charming', 'house', 'agreeable', 'ah', 'cute', 'graceful', 'fortunately', 'foolishly', 'light', 'country', 'thing', 'gifted', 'mysterious', 'likewise', 'daily', 'curious', 'glorious', 'easy', 'father', 'splendid', 'crowded', 'calm', 'finally', 'alas', 'information', 'healthy', 'panicky', 'room', 'successful', 'yearly', 'head', 'tender', 'life', 'boldly', 'normally', 'seldom', 'smoggy', 'company', 'elegant', 'school', 'inexpensive', 'envious', 'fair', 'cruelly', 'mushy', 'joyous', 'eww', 'silence', 'name', 'grieving', 'regularly', 'law', 'gleaming', 'kid', 'though', 'average', 'day', 'faithfully', 'book', 'badly', 'selfishly', 'tomorrow', 'cloudy', 'puzzled', 'rudely', 'wandering', 'deftly', 'cheerful', 'dull', 'part', 'hourly', 'different', 'wide-eyed', 'victoriously', 'excited', 'crazily', 'elated', 'dutifully', 'frail', 'odd', 'duh', 'gradually', 'story', 'yuck', 'expensive', 'office', 'case', 'ear-splittingly', 'shy', 'quickly', 'kind', 'week', 'immediately', 'gorgeous', 'zealous', 'seriously', 'place', 'worrisome', 'anxiously', 'languidly', 'after', 'once', 'yesterday', 'stupid', 'joylessly', 'psst', 'face', 'painfully', 'exuberant', 'shrilly', 'kindly', 'aggressive', 'furthermore', 'right', 'line', 'today', 'distinct', 'if', 'gosh', 'blah', 'however', 'achingly', 'nutty', 'loudly', 'impossible', 'enthusiastic', 'provided', 'awesome', 'sternly', 'haltingly', 'resonantly', 'proud', 'eye', 'leisurely', 'repulsive', 'rapidly', 'ugly', 'old-fashioned', 'blindly', 'long', 'poor', 'condemned', 'tense', 'restlessly', 'hungry', 'shakily', 'state', 'energetic', 'plain', 'bloody', 'unsightly', 'fantastic', 'body', 'lovely', 'hopelessly', 'awful', 'as', 'victorious', 'perfect', 'hush', 'a', 'frantic', 'angrily', 'unhappily', 'coyly', 'slowly', 'lazy', 'education', 'faithful', 'speedily', 'wildly', 'swiftly', 'careful', 'arrogant', 'scat', 'talented', 'tame', 'ashamed', 'water', 'innocent', 'force', 'government', 'occasionally', 'later', 'defeated', 'weary', 'unexpectedly', 'poised', 'person', 'aha', 'teacher', 'quaint', 'homeless', 'deliberately', 'helpless', 'minute', 'dead', 'zany', 'cow', 'putrid', 'gee', 'uproariously', 'cautious', 'anxious', 'awkwardly', 'dark', 'sleepy', 'no', 'study', 'vivacious', 'doubtful', 'lucky', 'instead', 'prickly', 'end', 'silly', 'clever', 'reason', 'powerful', 'there', 'hilarious', 'hey', 'man', 'brave', 'politely', 'gracefully', 'safely', 'itchy', 'crazy', 'often', 'time', 'night', 'example', 'area', 'bright', 'eek', 'whereas', 'team', 'troubled', 'lively', 'wearily', 'guy', 'beautiful', 'hand', 'excitedly', 'fact', 'just', 'annoying', 'mortally', 'magnificent', 'service', 'dejectedly', 'thankful', 'vociferously', 'wrong', 'ill', 'problem', 'alive', 'brightly', 'blue', 'grotesque', 'frightened', 'sadly', 'since', 'parent', 'crikey', 'obnoxious', 'yippee', 'attractive', 'better', 'alert', 'hurt', 'clean', 'always', 'group', 'dangerous', 'bingo', 'eventually', 'colorful', 'enough', 'wicked', 'door', 'outrageous', 'family', 'noisily', 'combative', 'faintly', 'car', 'solemnly', 'now', 'eager', 'side', 'funny', 'consequently', 'thoughtful', 'concerned', 'upset', 'open', 'way', 'uptight', 'happy', 'month', 'holy', 'adorable', 'in', 'vivaciously', 'jealously', 'spotless', 'breakable', 'when', 'friend', 'change', 'boastfully', 'good', 'terribly', 'sometimes', 'real', 'innocently', 'wherever', 'friendly', 'naughty', 'meanwhile', 'cooperative', 'bravo', 'helpful', 'generally', 'busy', 'clear', 'phooey', 'fragile', 'nice', 'lonely', 'jolly', 'wild', 'brainy', 'party', 'uninterested', 'supposing', 'miserably', 'grief', 'tired', 'doubtfully', 'irritably', 'terrible', 'happily', 'hurriedly', 'rich', 'accidentally', 'devotedly', 'world', 'elegantly', 'mysteriously', 'nightly', 'thunderously', 'filthy', 'misty', 'inaudibly', 'noiselessly', 'ugh', 'frequently', 'fierce', 'unusual', 'resoundingly', 'vast', 'weekly', 'witty']
     
     for k in common_words:
       if k in text: 
@@ -500,23 +500,38 @@ def fill_gap(id, subject, topic, ques_type):
 
     subject_data.drop('index',axis=1, inplace=True)
 
+    original_text_list=[]
     if subject_data.shape[0]!=0:
-      # Random selection of concept
-      index_lst=list(subject_data.index)
+      
+      for original_text in subject_data.documents:
+
+        # Finding the numerical values
+        import re      
+        numbers=re.findall(r"[-+]?(?:\d*\.\d+|\d+)", original_text)
+      
+        text=text_process(original_text)
+        if len(text.split())>0:
+          if len(numbers)>=3 and 'numerical' in ques_type:   # Finding the numerical problem
+            original_text_list.append(original_text)
+            
+          elif len(numbers)<3 and 'general' in ques_type:
+            original_text_list.append(original_text)   
+
       import random
-      random.shuffle(index_lst)
-      original_text_old=subject_data.documents[index_lst[0]]
+      random.shuffle(original_text_list)
+      original_text_old=original_text_list[0]
 
       # Removing image link from original text
       original_text="\n".join([k for k in original_text_old.split("\n") if k[:4]!="http"])
 
       # Finding the image links
       list_of_images=[k for k in original_text_old.split("\n") if k[:4]=="http"]
+    
 
       # Finding the numerical values
       import re      
       numbers=re.findall(r"[-+]?(?:\d*\.\d+|\d+)", original_text)
-      
+
       # Generating answer and question
       # Random selection of question
       import random
@@ -644,3 +659,133 @@ if len(st.session_state.student_ans)>0:
     st.session_state.score=st.session_state.score-10
     st.write(f"Your total score {st.session_state.score}")
 
+
+
+# def fill_gap(id, subject, topic, ques_type):
+#   '''
+#   id=int
+#   subject=list
+#   topic=list
+#   ques_type=list
+#   '''
+#   try:
+#     # Importing libraries
+#     import numpy as np
+#     import pandas as pd
+#     # global c
+#     # Reading student data as pandas df
+#     gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
+#     sheet_name = "Sheet1" # Student should not change the sheet name
+
+#     # Converting google sheet to csv
+#     gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+
+#     # Creating student data df
+#     student_data = pd.read_csv(gsheet_url)
+
+#     # Creating individual student df
+#     # Getting google sheet id
+#     gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
+#     sheet_name = "Concepts" # Student should not change the sheet name
+
+#     # Converting google sheet to csv
+#     gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+
+#     # Creating individual student data df
+#     individual_student_data = pd.read_csv(gsheet_url)
+#     individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
+
+#     # Getting the document for the subject
+#     df_lst=[]
+#     for s in subject:
+#       for t in topic:
+#         sub=s.title() # Converting to title case
+#         subject_data=individual_student_data[(individual_student_data.Subjects==sub) & (individual_student_data.Topics==t)]
+
+#         relevant_features=['Concept-1', 'Concept-2', 'Concept-3', 'Concept-4', 'Concept-5',
+#         'Concept-6', 'Concept-7', 'Concept-8', 'Concept-9', 'Concept-10',
+#         'Concept-11', 'Concept-12', 'Concept-13', 'Concept-14', 'Concept-15',
+#         'Concept-16', 'Concept-17', 'Concept-18', 'Concept-19', 'Concept-20']
+
+#         subject_data=subject_data[relevant_features]
+#         df_lst.append(subject_data)
+#     # Concatinating all the df
+#     subject_data=pd.concat(df_lst)
+#     # Creating documents with all individual cell
+#     subject_data=pd.DataFrame(subject_data.values.flatten(), columns=['documents'])
+
+#     # Removing null value rows
+#     subject_data.dropna(inplace=True) 
+
+#     # There are many documents with only newline character. Removing those rows
+#     subject_data=subject_data[(subject_data['documents']!='\n')]
+#     subject_data=subject_data[(subject_data['documents']!='\n\n')]
+
+#     # Removing all the rows with no data and reseting index 
+#     subject_data=subject_data[(subject_data['documents']!='No data')].reset_index()
+
+#     subject_data.drop('index',axis=1, inplace=True)
+
+#     if subject_data.shape[0]!=0:
+#       # Random selection of concept
+#       index_lst=list(subject_data.index)
+#       import random
+#       random.shuffle(index_lst)
+#       original_text_old=subject_data.documents[index_lst[0]]
+
+#       # Removing image link from original text
+#       original_text="\n".join([k for k in original_text_old.split("\n") if k[:4]!="http"])
+
+#       # Finding the image links
+#       list_of_images=[k for k in original_text_old.split("\n") if k[:4]=="http"]
+
+#       # Finding the numerical values
+#       import re      
+#       numbers=re.findall(r"[-+]?(?:\d*\.\d+|\d+)", original_text)
+      
+#       # Generating answer and question
+#       # Random selection of question
+#       import random
+#       text=text_process(original_text)
+#       if len(text.split())>0:
+#         if len(numbers)>=3:   # Finding the numerical problem
+#           random.shuffle(numbers)
+#           ans=numbers[0]
+#         else:
+#           lst=text.split()
+#           random.shuffle(lst)
+#           ans=lst[0]
+        
+#         # !"#$&\',;?@\\_`<> considering these characters at the start and end of answer
+#         for k in original_text.lower().split():
+#           if k==ans or k==ans+"," or k==","+ans or k==ans+";" or k==";"+ans or k==ans+"?" or k=="?"+ans or k==ans+"#" or k=="#"+ans or k==ans+"!" or k=="!"+ans or k==ans+"'" or k=="'"+ans or k==ans+"@" or k=="@"+ans or k==ans+"&" or k=="&"+ans or k==ans+"_" or k=="_"+ans or k==ans+">" or k==">"+ans or k==ans+"<" or k=="<"+ans or k==ans+">>" or k==">>"+ans:
+#             ans_index = original_text.lower().split().index(k)
+#             break
+
+#         # ans_index=original_text.lower().split().index(ans)
+#         original_text1=original_text.split("\n")  # code for retaining the structure of concepts entered by students
+#         original_text2=[]
+#         for k in original_text1:
+#           original_text2.append(k.split())
+#         c=0
+#         for k in original_text2:
+#           ans_index=ans_index-len(k)
+#           if ans_index<0:
+#             original_text2[c][ans_index]="_____"
+#             break
+#           c+=1
+#         ques=[" ".join(k) for k in original_text2]
+#         ques="\n".join(ques)
+                
+#       else:
+#         ques="Ask question again. Concept found is very poor in strength:("
+#         ans=""
+      
+#     else:
+#       ques="You have no concept record for this subject"
+#       ans=""
+#   except:
+#     ques="Please provide correct id, subject and topic"
+#     ans=""
+  
+#   return ques, ans, list_of_images
