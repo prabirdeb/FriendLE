@@ -412,7 +412,7 @@ def question_type(id, subject, topic):
           if len(numbers)>=3 and 'numerical' not in result:   # Finding the numerical problem
             result.append('numerical')
             
-          elif 'general' not in result:
+          elif len(numbers)<3 and 'general' not in result:
             result.append('general')        
               
     else:
@@ -434,7 +434,6 @@ def inspire():
   return res
 
 # Writing main function
-
 def fill_gap(id, subject, topic, ques_type):
   '''
   id=int
@@ -662,133 +661,3 @@ if len(st.session_state.student_ans)>0:
     st.session_state.score=st.session_state.score-10
     st.write(f"Your total score {st.session_state.score}")
 
-
-
-# def fill_gap(id, subject, topic, ques_type):
-#   '''
-#   id=int
-#   subject=list
-#   topic=list
-#   ques_type=list
-#   '''
-#   try:
-#     # Importing libraries
-#     import numpy as np
-#     import pandas as pd
-#     # global c
-#     # Reading student data as pandas df
-#     gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
-#     sheet_name = "Sheet1" # Student should not change the sheet name
-
-#     # Converting google sheet to csv
-#     gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
-
-#     # Creating student data df
-#     student_data = pd.read_csv(gsheet_url)
-
-#     # Creating individual student df
-#     # Getting google sheet id
-#     gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
-#     sheet_name = "Concepts" # Student should not change the sheet name
-
-#     # Converting google sheet to csv
-#     gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
-
-#     # Creating individual student data df
-#     individual_student_data = pd.read_csv(gsheet_url)
-#     individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
-
-#     # Getting the document for the subject
-#     df_lst=[]
-#     for s in subject:
-#       for t in topic:
-#         sub=s.title() # Converting to title case
-#         subject_data=individual_student_data[(individual_student_data.Subjects==sub) & (individual_student_data.Topics==t)]
-
-#         relevant_features=['Concept-1', 'Concept-2', 'Concept-3', 'Concept-4', 'Concept-5',
-#         'Concept-6', 'Concept-7', 'Concept-8', 'Concept-9', 'Concept-10',
-#         'Concept-11', 'Concept-12', 'Concept-13', 'Concept-14', 'Concept-15',
-#         'Concept-16', 'Concept-17', 'Concept-18', 'Concept-19', 'Concept-20']
-
-#         subject_data=subject_data[relevant_features]
-#         df_lst.append(subject_data)
-#     # Concatinating all the df
-#     subject_data=pd.concat(df_lst)
-#     # Creating documents with all individual cell
-#     subject_data=pd.DataFrame(subject_data.values.flatten(), columns=['documents'])
-
-#     # Removing null value rows
-#     subject_data.dropna(inplace=True) 
-
-#     # There are many documents with only newline character. Removing those rows
-#     subject_data=subject_data[(subject_data['documents']!='\n')]
-#     subject_data=subject_data[(subject_data['documents']!='\n\n')]
-
-#     # Removing all the rows with no data and reseting index 
-#     subject_data=subject_data[(subject_data['documents']!='No data')].reset_index()
-
-#     subject_data.drop('index',axis=1, inplace=True)
-
-#     if subject_data.shape[0]!=0:
-#       # Random selection of concept
-#       index_lst=list(subject_data.index)
-#       import random
-#       random.shuffle(index_lst)
-#       original_text_old=subject_data.documents[index_lst[0]]
-
-#       # Removing image link from original text
-#       original_text="\n".join([k for k in original_text_old.split("\n") if k[:4]!="http"])
-
-#       # Finding the image links
-#       list_of_images=[k for k in original_text_old.split("\n") if k[:4]=="http"]
-
-#       # Finding the numerical values
-#       import re      
-#       numbers=re.findall(r"[-+]?(?:\d*\.\d+|\d+)", original_text)
-      
-#       # Generating answer and question
-#       # Random selection of question
-#       import random
-#       text=text_process(original_text)
-#       if len(text.split())>0:
-#         if len(numbers)>=3:   # Finding the numerical problem
-#           random.shuffle(numbers)
-#           ans=numbers[0]
-#         else:
-#           lst=text.split()
-#           random.shuffle(lst)
-#           ans=lst[0]
-        
-#         # !"#$&\',;?@\\_`<> considering these characters at the start and end of answer
-#         for k in original_text.lower().split():
-#           if k==ans or k==ans+"," or k==","+ans or k==ans+";" or k==";"+ans or k==ans+"?" or k=="?"+ans or k==ans+"#" or k=="#"+ans or k==ans+"!" or k=="!"+ans or k==ans+"'" or k=="'"+ans or k==ans+"@" or k=="@"+ans or k==ans+"&" or k=="&"+ans or k==ans+"_" or k=="_"+ans or k==ans+">" or k==">"+ans or k==ans+"<" or k=="<"+ans or k==ans+">>" or k==">>"+ans:
-#             ans_index = original_text.lower().split().index(k)
-#             break
-
-#         # ans_index=original_text.lower().split().index(ans)
-#         original_text1=original_text.split("\n")  # code for retaining the structure of concepts entered by students
-#         original_text2=[]
-#         for k in original_text1:
-#           original_text2.append(k.split())
-#         c=0
-#         for k in original_text2:
-#           ans_index=ans_index-len(k)
-#           if ans_index<0:
-#             original_text2[c][ans_index]="_____"
-#             break
-#           c+=1
-#         ques=[" ".join(k) for k in original_text2]
-#         ques="\n".join(ques)
-                
-#       else:
-#         ques="Ask question again. Concept found is very poor in strength:("
-#         ans=""
-      
-#     else:
-#       ques="You have no concept record for this subject"
-#       ans=""
-#   except:
-#     ques="Please provide correct id, subject and topic"
-#     ans=""
-  
-#   return ques, ans, list_of_images
