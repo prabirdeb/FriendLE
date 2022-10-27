@@ -247,7 +247,7 @@ def subject_lst(id, medium, student_data):
 
   return result, individual_student_data
 
-def topic_lst(id, subject, student_data, individual_student_data):
+def topic_lst(id, subject, individual_student_data):
   '''
   id=int
   subject=list of subjects
@@ -283,7 +283,7 @@ def topic_lst(id, subject, student_data, individual_student_data):
   return result
 
 # question types: numerical, general
-def question_type(id, subject, topic, student_data, individual_student_data):
+def question_type(id, subject, topic, individual_student_data):
   '''
   id=int
   subject=list
@@ -365,7 +365,7 @@ def inspire():
   return res
 
 # Writing main function
-def fill_gap(id, subject, topic, ques_type, student_data, individual_student_data, subject_data):
+def fill_gap(id, subject, topic, ques_type, subject_data):
   '''
   id=int
   subject=list
@@ -376,37 +376,6 @@ def fill_gap(id, subject, topic, ques_type, student_data, individual_student_dat
     # Importing libraries
     import numpy as np
     import pandas as pd
-
-    # # Getting the document for the subject
-    # df_lst=[]
-    # for s in subject:
-    #   for t in topic:
-    #     sub=s.title() # Converting to title case
-    #     subject_data=individual_student_data[(individual_student_data.Subjects==sub) & (individual_student_data.Topics==t)]
-
-    #     relevant_features=['Concept-1', 'Concept-2', 'Concept-3', 'Concept-4', 'Concept-5',
-    #     'Concept-6', 'Concept-7', 'Concept-8', 'Concept-9', 'Concept-10',
-    #     'Concept-11', 'Concept-12', 'Concept-13', 'Concept-14', 'Concept-15',
-    #     'Concept-16', 'Concept-17', 'Concept-18', 'Concept-19', 'Concept-20']
-
-    #     subject_data=subject_data[relevant_features]
-    #     df_lst.append(subject_data)
-    # # Concatinating all the df
-    # subject_data=pd.concat(df_lst)
-    # # Creating documents with all individual cell
-    # subject_data=pd.DataFrame(subject_data.values.flatten(), columns=['documents'])
-
-    # # Removing null value rows
-    # subject_data.dropna(inplace=True) 
-
-    # # There are many documents with only newline character. Removing those rows
-    # subject_data=subject_data[(subject_data['documents']!='\n')]
-    # subject_data=subject_data[(subject_data['documents']!='\n\n')]
-
-    # # Removing all the rows with no data and reseting index 
-    # subject_data=subject_data[(subject_data['documents']!='No data')].reset_index()
-
-    # subject_data.drop('index',axis=1, inplace=True)
 
     original_text_list=[]
     if subject_data.shape[0]!=0:
@@ -484,7 +453,7 @@ def fill_gap(id, subject, topic, ques_type, student_data, individual_student_dat
       ans=""
       list_of_images=[]
   except:
-    ques="Please provide correct id, subject and topic"
+    ques="Please provide numerical values with space in the concept"
     ans=""
     list_of_images=[]
   
@@ -523,9 +492,9 @@ subject_list=subject_lst(id, medium, cl_list[1])
 
 subject = st.multiselect("Subject ", subject_list[0]) 
 
-topic = st.multiselect("Topic ", topic_lst(id, subject, cl_list[1], subject_list[1]))
+topic = st.multiselect("Topic ", topic_lst(id, subject, subject_list[1]))
 
-question_types=question_type(id, subject, topic, cl_list[1], subject_list[1])
+question_types=question_type(id, subject, topic, subject_list[1])
 
 ques_type = st.multiselect("Question Type ", question_types[0])
 
@@ -537,7 +506,7 @@ if "score" not in st.session_state:
   st.session_state.score=0
 
 if question: # when any button is pressed in streamlit,code runs from the begining
-  ques_ans = fill_gap(id, subject, topic, ques_type, cl_list[1], subject_list[1], question_types[1])
+  ques_ans = fill_gap(id, subject, topic, ques_type, question_types[1])
   for k in ques_ans[0].split("\n"):
       st.write(k)
   # st.write(ques_ans[0])
