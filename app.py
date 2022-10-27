@@ -160,17 +160,7 @@ def medium_lst(cl, student_data):
     # Importing libraries
     import numpy as np
     import pandas as pd
-    
-    # # Reading student data as pandas df
-    # gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
-    # sheet_name = "Sheet1" # Student should not change the sheet name
-
-    # # Converting google sheet to csv
-    # gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
-
-    # # Creating student data df
-    # student_data = pd.read_csv(gsheet_url)
-  
+     
     result=list(student_data[(student_data.Class==cl)]["Medium"].unique())
     result = [x for x in result if str(x) != 'nan']
     
@@ -183,21 +173,10 @@ def id_lst(cl, medium, student_data):
     # Importing libraries
     import numpy as np
     import pandas as pd
-   
-    # # Reading student data as pandas df
-    # gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
-    # sheet_name = "Sheet1" # Student should not change the sheet name
-
-    # # Converting google sheet to csv
-    # gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
-
-    # # Creating student data df
-    # student_data = pd.read_csv(gsheet_url)
   
     result=list(student_data[(student_data.Class==cl) & (student_data.Medium==medium)]["ID"].unique())
     result = [x for x in result if str(x) != 'nan']
-    
-    
+        
   except:
     result=[]
   return result
@@ -207,16 +186,6 @@ def subject_lst(id, medium, student_data):
     # Importing libraries
     import numpy as np
     import pandas as pd
-    
-    # # Reading student data as pandas df
-    # gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
-    # sheet_name = "Sheet1" # Student should not change the sheet name
-
-    # # Converting google sheet to csv
-    # gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
-
-    # # Creating student data df
-    # student_data = pd.read_csv(gsheet_url)
 
     # Creating individual student df
     # Getting google sheet id
@@ -272,10 +241,11 @@ def subject_lst(id, medium, student_data):
   
   except:
     result=[]
+    individual_student_data=pd.DataFrame([[]])
 
-  return result
+  return result, individual_student_data
 
-def topic_lst(id, subject, student_data):
+def topic_lst(id, subject, student_data, individual_student_data):
   '''
   id=int
   subject=list of subjects
@@ -284,28 +254,18 @@ def topic_lst(id, subject, student_data):
     # Importing libraries
     import numpy as np
     import pandas as pd
-    
-    # # Reading student data as pandas df
-    # gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
-    # sheet_name = "Sheet1" # Student should not change the sheet name
+
+    # # Creating individual student df
+    # # Getting google sheet id
+    # gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
+    # sheet_name = "Concepts" # Student should not change the sheet name
 
     # # Converting google sheet to csv
     # gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
 
-    # # Creating student data df
-    # student_data = pd.read_csv(gsheet_url)
-
-    # Creating individual student df
-    # Getting google sheet id
-    gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
-    sheet_name = "Concepts" # Student should not change the sheet name
-
-    # Converting google sheet to csv
-    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
-
-    # Creating individual student data df
-    individual_student_data = pd.read_csv(gsheet_url)
-    individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
+    # # Creating individual student data df
+    # individual_student_data = pd.read_csv(gsheet_url)
+    # individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
 
     relevant_features=['Concept-1', 'Concept-2', 'Concept-3', 'Concept-4', 'Concept-5',
     'Concept-6', 'Concept-7', 'Concept-8', 'Concept-9', 'Concept-10',
@@ -333,7 +293,7 @@ def topic_lst(id, subject, student_data):
   return result
 
 # question types: numerical, general
-def question_type(id, subject, topic, student_data):
+def question_type(id, subject, topic, student_data, individual_student_data):
   '''
   id=int
   subject=list
@@ -343,28 +303,18 @@ def question_type(id, subject, topic, student_data):
     # Importing libraries
     import numpy as np
     import pandas as pd
-    
-    # # Reading student data as pandas df
-    # gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
-    # sheet_name = "Sheet1" # Student should not change the sheet name
+
+    # # Creating individual student df
+    # # Getting google sheet id
+    # gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
+    # sheet_name = "Concepts" # Student should not change the sheet name
 
     # # Converting google sheet to csv
     # gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
 
-    # # Creating student data df
-    # student_data = pd.read_csv(gsheet_url)
-
-    # Creating individual student df
-    # Getting google sheet id
-    gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
-    sheet_name = "Concepts" # Student should not change the sheet name
-
-    # Converting google sheet to csv
-    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
-
-    # Creating individual student data df
-    individual_student_data = pd.read_csv(gsheet_url)
-    individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
+    # # Creating individual student data df
+    # individual_student_data = pd.read_csv(gsheet_url)
+    # individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
 
     # Getting the document for the subject
     df_lst=[]
@@ -436,7 +386,7 @@ def inspire():
   return res
 
 # Writing main function
-def fill_gap(id, subject, topic, ques_type):
+def fill_gap(id, subject, topic, ques_type, student_data, individual_student_data):
   '''
   id=int
   subject=list
@@ -447,28 +397,18 @@ def fill_gap(id, subject, topic, ques_type):
     # Importing libraries
     import numpy as np
     import pandas as pd
-    # global c
-    # Reading student data as pandas df
-    gsheetid = "1g1uWDGjJ1aGRXtJVkISj9qwq-DJmnzTS"
-    sheet_name = "Sheet1" # Student should not change the sheet name
 
-    # Converting google sheet to csv
-    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+    # # Creating individual student df
+    # # Getting google sheet id
+    # gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
+    # sheet_name = "Concepts" # Student should not change the sheet name
 
-    # Creating student data df
-    student_data = pd.read_csv(gsheet_url)
+    # # Converting google sheet to csv
+    # gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
 
-    # Creating individual student df
-    # Getting google sheet id
-    gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
-    sheet_name = "Concepts" # Student should not change the sheet name
-
-    # Converting google sheet to csv
-    gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
-
-    # Creating individual student data df
-    individual_student_data = pd.read_csv(gsheet_url)
-    individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
+    # # Creating individual student data df
+    # individual_student_data = pd.read_csv(gsheet_url)
+    # individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
 
     # Getting the document for the subject
     df_lst=[]
@@ -612,11 +552,13 @@ medium = st.selectbox("Medium", medium_lst(cl, cl_list[1]))
 
 id = st.selectbox("Your ID", id_lst(cl, medium, cl_list[1])) 
 
-subject = st.multiselect("Subject ", subject_lst(id, medium, cl_list[1])) 
+subject_list=subject_lst(id, medium, cl_list[1])
 
-topic = st.multiselect("Topic ", topic_lst(id, subject, cl_list[1]))
+subject = st.multiselect("Subject ", subject_list[0]) 
 
-ques_type = st.multiselect("Question Type ", question_type(id, subject, topic, cl_list[1]))
+topic = st.multiselect("Topic ", topic_lst(id, subject, cl_list[1], subject_list[1]))
+
+ques_type = st.multiselect("Question Type ", question_type(id, subject, topic, cl_list[1], subject_list[1]))
 
 add_bg_from_local('fillgap.png')   
 
@@ -626,7 +568,7 @@ if "score" not in st.session_state:
   st.session_state.score=0
 
 if question: # when any button is pressed in streamlit,code runs from the begining
-  ques_ans = fill_gap(id, subject, topic, ques_type)
+  ques_ans = fill_gap(id, subject, topic, ques_type, cl_list[1], subject_list[1])
   for k in ques_ans[0].split("\n"):
       st.write(k)
   # st.write(ques_ans[0])
