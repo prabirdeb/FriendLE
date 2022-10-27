@@ -152,8 +152,8 @@ def cl_lst():
   except:
     result=[]
     student_data=pd.DataFrame([[]])
-    
-  return result,student_data
+
+  return result, student_data
 
 def medium_lst(cl, student_data):
   try:
@@ -166,6 +166,7 @@ def medium_lst(cl, student_data):
     
   except:
     result=[]
+    
   return result
 
 def id_lst(cl, medium, student_data):
@@ -179,6 +180,7 @@ def id_lst(cl, medium, student_data):
         
   except:
     result=[]
+    
   return result
 
 def subject_lst(id, medium, student_data):
@@ -255,18 +257,6 @@ def topic_lst(id, subject, student_data, individual_student_data):
     import numpy as np
     import pandas as pd
 
-    # # Creating individual student df
-    # # Getting google sheet id
-    # gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
-    # sheet_name = "Concepts" # Student should not change the sheet name
-
-    # # Converting google sheet to csv
-    # gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
-
-    # # Creating individual student data df
-    # individual_student_data = pd.read_csv(gsheet_url)
-    # individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
-
     relevant_features=['Concept-1', 'Concept-2', 'Concept-3', 'Concept-4', 'Concept-5',
     'Concept-6', 'Concept-7', 'Concept-8', 'Concept-9', 'Concept-10',
     'Concept-11', 'Concept-12', 'Concept-13', 'Concept-14', 'Concept-15',
@@ -303,18 +293,6 @@ def question_type(id, subject, topic, student_data, individual_student_data):
     # Importing libraries
     import numpy as np
     import pandas as pd
-
-    # # Creating individual student df
-    # # Getting google sheet id
-    # gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
-    # sheet_name = "Concepts" # Student should not change the sheet name
-
-    # # Converting google sheet to csv
-    # gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
-
-    # # Creating individual student data df
-    # individual_student_data = pd.read_csv(gsheet_url)
-    # individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
 
     # Getting the document for the subject
     df_lst=[]
@@ -371,8 +349,9 @@ def question_type(id, subject, topic, student_data, individual_student_data):
       result=['general']
   except:
     result=['general']
+    subject_data=pd.DataFrame([[]])
   
-  return result
+  return result, subject_data
 
 def inspire():
   try:
@@ -386,7 +365,7 @@ def inspire():
   return res
 
 # Writing main function
-def fill_gap(id, subject, topic, ques_type, student_data, individual_student_data):
+def fill_gap(id, subject, topic, ques_type, student_data, individual_student_data, subject_data):
   '''
   id=int
   subject=list
@@ -398,48 +377,36 @@ def fill_gap(id, subject, topic, ques_type, student_data, individual_student_dat
     import numpy as np
     import pandas as pd
 
-    # # Creating individual student df
-    # # Getting google sheet id
-    # gsheetid = student_data[(student_data["ID"]==id) & (student_data["Status"]=="Active")]["Concept_link"].values[0].replace("https://docs.google.com/spreadsheets/d/","").split("/")[0]
-    # sheet_name = "Concepts" # Student should not change the sheet name
+    # # Getting the document for the subject
+    # df_lst=[]
+    # for s in subject:
+    #   for t in topic:
+    #     sub=s.title() # Converting to title case
+    #     subject_data=individual_student_data[(individual_student_data.Subjects==sub) & (individual_student_data.Topics==t)]
 
-    # # Converting google sheet to csv
-    # gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+    #     relevant_features=['Concept-1', 'Concept-2', 'Concept-3', 'Concept-4', 'Concept-5',
+    #     'Concept-6', 'Concept-7', 'Concept-8', 'Concept-9', 'Concept-10',
+    #     'Concept-11', 'Concept-12', 'Concept-13', 'Concept-14', 'Concept-15',
+    #     'Concept-16', 'Concept-17', 'Concept-18', 'Concept-19', 'Concept-20']
 
-    # # Creating individual student data df
-    # individual_student_data = pd.read_csv(gsheet_url)
-    # individual_student_data = individual_student_data[(individual_student_data["Class"]==student_data[(student_data["ID"]==id)]["Class"].values[0])]
+    #     subject_data=subject_data[relevant_features]
+    #     df_lst.append(subject_data)
+    # # Concatinating all the df
+    # subject_data=pd.concat(df_lst)
+    # # Creating documents with all individual cell
+    # subject_data=pd.DataFrame(subject_data.values.flatten(), columns=['documents'])
 
-    # Getting the document for the subject
-    df_lst=[]
-    for s in subject:
-      for t in topic:
-        sub=s.title() # Converting to title case
-        subject_data=individual_student_data[(individual_student_data.Subjects==sub) & (individual_student_data.Topics==t)]
+    # # Removing null value rows
+    # subject_data.dropna(inplace=True) 
 
-        relevant_features=['Concept-1', 'Concept-2', 'Concept-3', 'Concept-4', 'Concept-5',
-        'Concept-6', 'Concept-7', 'Concept-8', 'Concept-9', 'Concept-10',
-        'Concept-11', 'Concept-12', 'Concept-13', 'Concept-14', 'Concept-15',
-        'Concept-16', 'Concept-17', 'Concept-18', 'Concept-19', 'Concept-20']
+    # # There are many documents with only newline character. Removing those rows
+    # subject_data=subject_data[(subject_data['documents']!='\n')]
+    # subject_data=subject_data[(subject_data['documents']!='\n\n')]
 
-        subject_data=subject_data[relevant_features]
-        df_lst.append(subject_data)
-    # Concatinating all the df
-    subject_data=pd.concat(df_lst)
-    # Creating documents with all individual cell
-    subject_data=pd.DataFrame(subject_data.values.flatten(), columns=['documents'])
+    # # Removing all the rows with no data and reseting index 
+    # subject_data=subject_data[(subject_data['documents']!='No data')].reset_index()
 
-    # Removing null value rows
-    subject_data.dropna(inplace=True) 
-
-    # There are many documents with only newline character. Removing those rows
-    subject_data=subject_data[(subject_data['documents']!='\n')]
-    subject_data=subject_data[(subject_data['documents']!='\n\n')]
-
-    # Removing all the rows with no data and reseting index 
-    subject_data=subject_data[(subject_data['documents']!='No data')].reset_index()
-
-    subject_data.drop('index',axis=1, inplace=True)
+    # subject_data.drop('index',axis=1, inplace=True)
 
     original_text_list=[]
     if subject_data.shape[0]!=0:
@@ -558,7 +525,9 @@ subject = st.multiselect("Subject ", subject_list[0])
 
 topic = st.multiselect("Topic ", topic_lst(id, subject, cl_list[1], subject_list[1]))
 
-ques_type = st.multiselect("Question Type ", question_type(id, subject, topic, cl_list[1], subject_list[1]))
+question_types=question_type(id, subject, topic, cl_list[1], subject_list[1])
+
+ques_type = st.multiselect("Question Type ", question_types[0])
 
 add_bg_from_local('fillgap.png')   
 
@@ -568,7 +537,7 @@ if "score" not in st.session_state:
   st.session_state.score=0
 
 if question: # when any button is pressed in streamlit,code runs from the begining
-  ques_ans = fill_gap(id, subject, topic, ques_type, cl_list[1], subject_list[1])
+  ques_ans = fill_gap(id, subject, topic, ques_type, cl_list[1], subject_list[1], question_types[1])
   for k in ques_ans[0].split("\n"):
       st.write(k)
   # st.write(ques_ans[0])
